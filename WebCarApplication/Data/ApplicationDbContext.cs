@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WebCarApplication.Models;
+using WebCarApplication.Models.Entities;
 
 namespace WebCarApplication.Data
     {

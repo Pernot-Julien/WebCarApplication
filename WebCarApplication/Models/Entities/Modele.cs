@@ -1,4 +1,4 @@
-﻿namespace WebCarApplication.Models
+﻿namespace WebCarApplication.Models.Entities
 {
     public class Modele
     {
