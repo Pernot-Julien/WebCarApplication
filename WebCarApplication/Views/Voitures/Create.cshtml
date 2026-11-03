@@ -1,0 +1,91 @@
+﻿@model WebCarApplication.Models.ViewModels.CreateVoitureViewModel
+
+@{
+    ViewData["Title"] = "Ajouter une voiture";
+}
+
+<h2>Ajouter une nouvelle voiture</h2>
+
+<form asp-action="Create" method="post">
+    
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div>
+        <label asp-for="CodeVin"></label><br />
+        <input asp-for="CodeVin" placeholder="Ex: VF1... (Optionnel)" />
+        <span asp-validation-for="CodeVin"></span>
+    </div>
+    <br />
+
+    <div>
+        <label asp-for="Annee"></label><br />
+        <input asp-for="Annee" type="number" />
+        <span asp-validation-for="Annee"></span>
+    </div>
+    <br />
+
+    <div>
+        <label asp-for="MarqueId"></label><br />
+        <select asp-for="MarqueId" asp-items="Model.MarquesDisponibles">
+            <option value="">-- Marque --</option>
+        </select>
+        <span asp-validation-for="MarqueId"></span>
+    </div>
+    <br />
+
+    <div>
+        <label asp-for="ModeleId"></label><br />
+        <select asp-for="ModeleId" asp-items="Model.ModelesDisponibles">
+            <option value="">-- Modèle --</option>
+        </select>
+        <span asp-validation-for="ModeleId"></span>
+    </div>
+    <br />
+
+    <div>
+        <label asp-for="FinitionId"></label><br />
+        <select asp-for="FinitionId" asp-items="Model.FinitionsDisponibles">
+            <option value="">-- Finition --</option>
+        </select>
+        <span asp-validation-for="FinitionId"></span>
+    </div>
+    <br />
+
+    <div>
+        <label asp-for="DateAchat"></label><br />
+        <input asp-for="DateAchat" type="date" />
+        <span asp-validation-for="DateAchat"></span>
+    </div>
+    <br />
+
+    <div>
+        <label asp-for="PrixAchat"></label><br />
+        <input asp-for="PrixAchat" type="number" step="0.01" />
+        <span asp-validation-for="PrixAchat"></span>
+    </div>
+    <br />
+
+    <div>
+        <label asp-for="DateDisponibiliteVente"></label><br />
+        <input asp-for="DateDisponibiliteVente" type="date" />
+        <span asp-validation-for="DateDisponibiliteVente"></span>
+    </div>
+    <br />
+
+    <div>
+        <label asp-for="PrixVente"></label><br />
+        <input asp-for="PrixVente" type="number" step="0.01" placeholder="Optionnel" />
+        <span asp-validation-for="PrixVente"></span>
+    </div>
+    <br />
+
+    <div>
+        <a asp-action="Index">Retour à la liste</a>
+        <button type="submit">Enregistrer la voiture</button>
+    </div>
+
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
