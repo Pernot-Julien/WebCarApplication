@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WebCarApplication.Models;
+using WebCarApplication.Models.ViewModels;
 
 namespace WebCarApplication.Controllers
 {

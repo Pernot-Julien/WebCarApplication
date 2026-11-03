@@ -1,4 +1,4 @@
-﻿namespace WebCarApplication.Models.Services
+﻿namespace WebCarApplication.Models.Services.Interfaces
 {
     public interface IModeleService
     {

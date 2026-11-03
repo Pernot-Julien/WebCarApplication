@@ -1,6 +1,6 @@
-﻿namespace WebCarApplication.Models.Repositories
+﻿namespace WebCarApplication.Models.Repositories.Interfaces
 {
-    public interface IReparation
+    public interface IReparationRepository
     {
     }
 }

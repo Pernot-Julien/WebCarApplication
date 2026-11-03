@@ -1,6 +1,6 @@
 ﻿namespace WebCarApplication.Controllers
 {
-    public class VoitruesController
+    public class VoituresController
     {
     }
 }
