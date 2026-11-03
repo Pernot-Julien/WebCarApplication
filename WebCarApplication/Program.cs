@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebCarApplication.Data;
+using WebCarApplication.Models.Repositories;
+using WebCarApplication.Models.Repositories.Interfaces;
+using WebCarApplication.Models.Services;
+using WebCarApplication.Models.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +17,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IVoitureRepository, VoitureRepository>();
+builder.Services.AddScoped<IVoitureService, VoitureService>();
 
 var app = builder.Build();
 

@@ -224,22 +224,7 @@ namespace WebCarApplication.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ReparationVoiture", b =>
-                {
-                    b.Property<int>("ReparationsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VoituresId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ReparationsId", "VoituresId");
-
-                    b.HasIndex("VoituresId");
-
-                    b.ToTable("ReparationVoiture");
-                });
-
-            modelBuilder.Entity("WebCarApplication.Models.Finition", b =>
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Finition", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -261,7 +246,7 @@ namespace WebCarApplication.Data.Migrations
                     b.ToTable("Finitions");
                 });
 
-            modelBuilder.Entity("WebCarApplication.Models.Marque", b =>
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Marque", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -278,7 +263,7 @@ namespace WebCarApplication.Data.Migrations
                     b.ToTable("Marques");
                 });
 
-            modelBuilder.Entity("WebCarApplication.Models.Modele", b =>
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Modele", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -300,7 +285,7 @@ namespace WebCarApplication.Data.Migrations
                     b.ToTable("Modeles");
                 });
 
-            modelBuilder.Entity("WebCarApplication.Models.Photo", b =>
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Photo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -326,7 +311,7 @@ namespace WebCarApplication.Data.Migrations
                     b.ToTable("Photos");
                 });
 
-            modelBuilder.Entity("WebCarApplication.Models.Reparation", b =>
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Reparation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -334,16 +319,25 @@ namespace WebCarApplication.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<decimal>("CoutReparation")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("DescriptionReparation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("VoitureId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("VoitureId");
 
                     b.ToTable("Reparations");
                 });
 
-            modelBuilder.Entity("WebCarApplication.Models.Voiture", b =>
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Voiture", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -354,7 +348,7 @@ namespace WebCarApplication.Data.Migrations
                     b.Property<int>("Annee")
                         .HasColumnType("int");
 
-                    b.Property<int>("CodeVin")
+                    b.Property<int?>("CodeVin")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateAchat")
@@ -363,18 +357,18 @@ namespace WebCarApplication.Data.Migrations
                     b.Property<DateTime>("DateDisponibilite")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateVente")
+                    b.Property<DateTime?>("DateVente")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FinitionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PrixAchat")
-                        .HasColumnType("int");
+                    b.Property<decimal>("PrixAchat")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -434,24 +428,9 @@ namespace WebCarApplication.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ReparationVoiture", b =>
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Finition", b =>
                 {
-                    b.HasOne("WebCarApplication.Models.Reparation", null)
-                        .WithMany()
-                        .HasForeignKey("ReparationsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebCarApplication.Models.Voiture", null)
-                        .WithMany()
-                        .HasForeignKey("VoituresId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("WebCarApplication.Models.Finition", b =>
-                {
-                    b.HasOne("WebCarApplication.Models.Modele", "Modele")
+                    b.HasOne("WebCarApplication.Models.Entities.Modele", "Modele")
                         .WithMany("Finitions")
                         .HasForeignKey("ModeleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -460,9 +439,9 @@ namespace WebCarApplication.Data.Migrations
                     b.Navigation("Modele");
                 });
 
-            modelBuilder.Entity("WebCarApplication.Models.Modele", b =>
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Modele", b =>
                 {
-                    b.HasOne("WebCarApplication.Models.Marque", "Marque")
+                    b.HasOne("WebCarApplication.Models.Entities.Marque", "Marque")
                         .WithMany("Modele")
                         .HasForeignKey("MarqueId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -471,9 +450,9 @@ namespace WebCarApplication.Data.Migrations
                     b.Navigation("Marque");
                 });
 
-            modelBuilder.Entity("WebCarApplication.Models.Photo", b =>
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Photo", b =>
                 {
-                    b.HasOne("WebCarApplication.Models.Voiture", "Voiture")
+                    b.HasOne("WebCarApplication.Models.Entities.Voiture", "Voiture")
                         .WithMany("Photos")
                         .HasForeignKey("VoitureId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -482,9 +461,20 @@ namespace WebCarApplication.Data.Migrations
                     b.Navigation("Voiture");
                 });
 
-            modelBuilder.Entity("WebCarApplication.Models.Voiture", b =>
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Reparation", b =>
                 {
-                    b.HasOne("WebCarApplication.Models.Finition", "Finition")
+                    b.HasOne("WebCarApplication.Models.Entities.Voiture", "Voiture")
+                        .WithMany("Reparations")
+                        .HasForeignKey("VoitureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Voiture");
+                });
+
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Voiture", b =>
+                {
+                    b.HasOne("WebCarApplication.Models.Entities.Finition", "Finition")
                         .WithMany("Voiture")
                         .HasForeignKey("FinitionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -493,24 +483,26 @@ namespace WebCarApplication.Data.Migrations
                     b.Navigation("Finition");
                 });
 
-            modelBuilder.Entity("WebCarApplication.Models.Finition", b =>
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Finition", b =>
                 {
                     b.Navigation("Voiture");
                 });
 
-            modelBuilder.Entity("WebCarApplication.Models.Marque", b =>
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Marque", b =>
                 {
                     b.Navigation("Modele");
                 });
 
-            modelBuilder.Entity("WebCarApplication.Models.Modele", b =>
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Modele", b =>
                 {
                     b.Navigation("Finitions");
                 });
 
-            modelBuilder.Entity("WebCarApplication.Models.Voiture", b =>
+            modelBuilder.Entity("WebCarApplication.Models.Entities.Voiture", b =>
                 {
                     b.Navigation("Photos");
+
+                    b.Navigation("Reparations");
                 });
 #pragma warning restore 612, 618
         }
