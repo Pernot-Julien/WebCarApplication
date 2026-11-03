@@ -17,5 +17,19 @@ namespace WebCarApplication.Data
             public DbSet<Modele> Modeles { get; set; }
             public DbSet<Marque> Marques { get; set; }
             public DbSet<Reparation> Reparations { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Précisions pour les décimaux
+            modelBuilder.Entity<Voiture>()
+                .Property(v => v.PrixAchat)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Reparation>()
+                .Property(r => r.CoutReparation)
+                .HasPrecision(18, 2);
         }
+    }
     }
