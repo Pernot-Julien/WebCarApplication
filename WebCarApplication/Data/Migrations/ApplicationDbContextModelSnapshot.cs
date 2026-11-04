@@ -294,7 +294,6 @@ namespace WebCarApplication.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("TexteAlternatif")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
@@ -354,7 +353,7 @@ namespace WebCarApplication.Data.Migrations
                     b.Property<DateTime>("DateAchat")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateDisponibilite")
+                    b.Property<DateTime?>("DateDisponibilite")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateVente")
