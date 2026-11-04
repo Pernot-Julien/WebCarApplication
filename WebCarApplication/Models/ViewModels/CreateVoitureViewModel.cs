@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using WebCarApplication.Models.Repositories;
+using WebCarApplication.Models.Repositories.Interfaces;
+using WebCarApplication.Models.Services;
 
 namespace WebCarApplication.Models.ViewModels
 {
     public class CreateVoitureViewModel
     {
         [Display(Name = "Code VIN")]
-        public string? CodeVin { get; set; } 
+        public int? CodeVin { get; set; } 
 
         [Required(ErrorMessage = "L'année est obligatoire")]
         public int Annee { get; set; }
@@ -19,15 +22,10 @@ namespace WebCarApplication.Models.ViewModels
         [Required(ErrorMessage = "Le prix d'achat est obligatoire")]
         [Display(Name = "Prix d'achat (€)")]
         public decimal PrixAchat { get; set; }
-
-        [Required(ErrorMessage = "La date de disponibilité est obligatoire")]
+  
         [DataType(DataType.Date)]
-        [Display(Name = "Date de disponibilité à la vente")]
-        public DateTime DateDisponibiliteVente { get; set; }
-
-        [Required(ErrorMessage = "Le prix de vente est obligatoire")]
-        [Display(Name = "Prix de vente (€)")]
-        public decimal PrixVente { get; set; }
+        [Display(Name = "Date de disponibilité à la vente si disponible")]
+        public DateTime DateDisponibilite { get; set; }
 
         // Listes déroulantes
         [Required(ErrorMessage = "Veuillez sélectionner une marque")]
@@ -43,8 +41,8 @@ namespace WebCarApplication.Models.ViewModels
         public int FinitionId { get; set; }
 
         // Listes pour le formulaire
-        public IEnumerable<SelectListItem> MarquesDisponibles { get; set; } = new List<SelectListItem>();
-        public IEnumerable<SelectListItem> ModelesDisponibles { get; set; } = new List<SelectListItem>();
-        public IEnumerable<SelectListItem> FinitionsDisponibles { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> MarquesDisponibles { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> ModelesDisponibles { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> FinitionsDisponibles { get; set; } = new List<SelectListItem>();
     }
 }
