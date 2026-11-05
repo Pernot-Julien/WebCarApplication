@@ -25,11 +25,15 @@ namespace WebCarApplication.Models.Services
             return prixVente;
         }
 
-        public Voiture AjouterVoiture( Voiture voiture)
+        public Voiture AjouterVoiture(Voiture voiture)
         {
             _voitureRepository.AjouterVoiture(voiture);
             return voiture;
         }
-      
+        public IEnumerable<Photo> RecupererPhotosSelonVoiture(int voitureId)
+        {
+            return _voitureRepository.RecupererPhotosSelonVoiture(voitureId);
+        }
+
     }
 }

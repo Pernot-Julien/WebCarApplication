@@ -1,6 +1,11 @@
-﻿namespace WebCarApplication.Models.Repositories
+﻿using WebCarApplication.Models.Repositories.Interfaces;
+using WebCarApplication.Data;
+using WebCarApplication.Models.Entities;
+
+namespace WebCarApplication.Models.Repositories
 {
-    public class PhotoRepository
+    public class PhotoRepository : IPhotoRepository
     {
+        
     }
 }

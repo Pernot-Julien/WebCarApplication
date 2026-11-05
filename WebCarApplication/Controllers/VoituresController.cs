@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using WebCarApplication.Data;
+using WebCarApplication.Models.Entities;
 using WebCarApplication.Models.Services;
 using WebCarApplication.Models.Services.Interfaces;
 using WebCarApplication.Models.ViewModels;
@@ -11,21 +9,37 @@ namespace WebCarApplication.Controllers
 {
     public class VoituresController : Controller
     {
+        private readonly IMarqueService _marqueService;
+        private readonly IModeleService _modeleService;
+        private readonly IFinitionService _finitionService;
+   
         private readonly IVoitureService _voitureService;
 
-        public VoituresController(IVoitureService voitureService)
+        public VoituresController(IVoitureService voitureService, IMarqueService marqueService, IModeleService modeleService, IFinitionService finitionService)
         {
             _voitureService = voitureService;
+            _marqueService = marqueService;
+            _modeleService = modeleService;
+            _finitionService = finitionService;
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            var viewModel = new CreateVoitureViewModel();
+            var createVoitureViewModel = new CreateVoitureViewModel();
+            // ici je veux recuperer toutes les marques 
+            createVoitureViewModel.MarquesDisponibles = _marqueService.RecupererToutesLesMarques().Select(m => new SelectListItem
+           {
+               Value = m.Id.ToString(),
+               Text = m.NomMarque
+           }).ToList();
+            createVoitureViewModel.ModelesDisponibles =_modeleService.RecupererTousLesModeles().Select(m => new SelectListItem
+              {
+                  Value = m.Id.ToString(),
+                  Text = m.NomModele
+              }).ToList();
 
-            // Il faudra récupérer les listes en BDD après avoir rentré les données 
-            return View(viewModel);
-
+            return View(createVoitureViewModel);
         }
 
 
@@ -34,24 +48,34 @@ namespace WebCarApplication.Controllers
         {
             if (!ModelState.IsValid)
             {
+                createVoitureViewModel.MarquesDisponibles = _marqueService
+                    .RecupererToutesLesMarques()
+                    .Select(m => new SelectListItem
+                    {
+                        Value = m.Id.ToString(),
+                        Text = m.NomMarque
+                    }).ToList();
+
                 return View(createVoitureViewModel);
             }
-            else
+
+            var voiture = new Models.Entities.Voiture
             {
-                var voiture = new Models.Entities.Voiture
-                {
-                    CodeVin = createVoitureViewModel.CodeVin,
-                    Annee = createVoitureViewModel.Annee,
-                    DateAchat = createVoitureViewModel.DateAchat,
-                    PrixAchat = createVoitureViewModel.PrixAchat,
-                    DateDisponibilite = createVoitureViewModel.DateDisponibilite,
-                    FinitionId = createVoitureViewModel.FinitionId
-                };
-                _voitureService.AjouterVoiture(voiture);
+                CodeVin = createVoitureViewModel.CodeVin,
+                Annee = createVoitureViewModel.Annee,
+                DateAchat = createVoitureViewModel.DateAchat,
+                PrixAchat = createVoitureViewModel.PrixAchat,
+                DateDisponibilite = createVoitureViewModel.DateDisponibilite,
+                FinitionId = createVoitureViewModel.FinitionId,
+                Photos = new List<Photo>
+            {
+                    new Photo { Url = createVoitureViewModel.Photo }
+                }
+            };
 
-                return RedirectToAction("Index");
+            _voitureService.AjouterVoiture(voiture);
 
-            }
+            return RedirectToAction("Index");
         }
     }
 }

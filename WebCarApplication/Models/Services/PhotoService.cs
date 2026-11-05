@@ -1,6 +1,11 @@
-﻿namespace WebCarApplication.Models.Services
+﻿using WebCarApplication.Models.Repositories.Interfaces;
+using WebCarApplication.Models.Entities;
+
+namespace WebCarApplication.Models.Services
 {
-    public class PhotoService
+    public class PhotoService 
     {
+       
+       
     }
 }

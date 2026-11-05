@@ -20,6 +20,12 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IVoitureRepository, VoitureRepository>();
 builder.Services.AddScoped<IVoitureService, VoitureService>();
+builder.Services.AddScoped<IMarqueRepository, MarqueRepository>();
+builder.Services.AddScoped<IMarqueService, MarqueService>();
+builder.Services.AddScoped<IModeleRepository, ModeleRepository>();
+builder.Services.AddScoped<IModeleService, ModeleService>();
+builder.Services.AddScoped<IFinitionRepository, FinitionRepository>();
+builder.Services.AddScoped<IFinitionService, FinitionService>();
 
 var app = builder.Build();
 

@@ -37,4 +37,8 @@ public class VoitureRepository : IVoitureRepository
             _context.SaveChanges();
         }
     }
+    public IEnumerable<Photo> RecupererPhotosSelonVoiture(int voitureId)
+    {
+        return _context.Photos.Where(p => p.VoitureId == voitureId).ToList();
+    }
 }
