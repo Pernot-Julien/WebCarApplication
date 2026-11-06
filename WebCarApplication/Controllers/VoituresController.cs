@@ -12,7 +12,7 @@ namespace WebCarApplication.Controllers
         private readonly IMarqueService _marqueService;
         private readonly IModeleService _modeleService;
         private readonly IFinitionService _finitionService;
-   
+
         private readonly IVoitureService _voitureService;
 
         public VoituresController(IVoitureService voitureService, IMarqueService marqueService, IModeleService modeleService, IFinitionService finitionService)
@@ -29,15 +29,21 @@ namespace WebCarApplication.Controllers
             var createVoitureViewModel = new CreateVoitureViewModel();
             // ici je veux recuperer toutes les marques 
             createVoitureViewModel.MarquesDisponibles = _marqueService.RecupererToutesLesMarques().Select(m => new SelectListItem
-           {
-               Value = m.Id.ToString(),
-               Text = m.NomMarque
-           }).ToList();
-            createVoitureViewModel.ModelesDisponibles =_modeleService.RecupererTousLesModeles().Select(m => new SelectListItem
-              {
-                  Value = m.Id.ToString(),
-                  Text = m.NomModele
-              }).ToList();
+            {
+                Value = m.Id.ToString(),
+                Text = m.NomMarque
+            }).ToList();
+            createVoitureViewModel.ModelesDisponibles = _modeleService.RecupererTousLesModeles().Select(m => new SelectListItem
+            {
+                Value = m.Id.ToString(),
+                Text = m.NomModele
+            }).ToList();
+
+            createVoitureViewModel.FinitionsDisponibles = _finitionService.RecupererToutesLesFinitions().Select(f => new SelectListItem
+            {
+                Value = f.Id.ToString(),
+                Text = f.NomFinition
+            }).ToList();
 
             return View(createVoitureViewModel);
         }
@@ -67,15 +73,29 @@ namespace WebCarApplication.Controllers
                 PrixAchat = createVoitureViewModel.PrixAchat,
                 DateDisponibilite = createVoitureViewModel.DateDisponibilite,
                 FinitionId = createVoitureViewModel.FinitionId,
-                Photos = new List<Photo>
-            {
-                    new Photo { Url = createVoitureViewModel.Photo }
-                }
             };
 
+            if (createVoitureViewModel.Photo != null)
+            {
+                var fileName = createVoitureViewModel.Photo.FileName;
+
+                var filePath = Path.Combine( Directory.GetCurrentDirectory(), "wwwroot", "images", "voitures", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    createVoitureViewModel.Photo.CopyToAsync(stream);
+                }
+
+                voiture.Photos.Add(new Photo
+                {
+                    Url = fileName
+                });
+
+               
+            }
             _voitureService.AjouterVoiture(voiture);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Create");
         }
     }
 }

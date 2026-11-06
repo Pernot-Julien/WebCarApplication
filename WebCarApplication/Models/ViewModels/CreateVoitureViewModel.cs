@@ -41,9 +41,9 @@ namespace WebCarApplication.Models.ViewModels
         [Display(Name = "Finition")]
         public int FinitionId { get; set; }
 
-        [Required(ErrorMessage = "L'URL de la photo est obligatoire")]
+        [Required(ErrorMessage = "La photo est obligatoire")]
         [Display(Name = "Photo")]
-        public string Photo { get; set; } = string.Empty;
+        public IFormFile? Photo { get; set; }
 
         // Données destinées aux listes déroulantes
         public List<SelectListItem> MarquesDisponibles { get; set; } = new();
