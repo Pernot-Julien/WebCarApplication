@@ -13,9 +13,9 @@ namespace WebCarApplication.Models.Services
             _modeleRepository = modeleRepository;
         }
 
-        public IEnumerable<Modele> RecupererModeleSelonMarque(int marqueId)
+        public Modele? RecupererModeleSelonId(int modeleId)
         {
-            return _modeleRepository.RecupererModeleSelonMarque(marqueId);
+            return _modeleRepository.RecupererModeleSelonId(modeleId);
         }
 
         public IEnumerable<Modele> RecupererTousLesModeles()

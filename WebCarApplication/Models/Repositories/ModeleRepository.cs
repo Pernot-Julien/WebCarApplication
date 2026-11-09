@@ -12,13 +12,14 @@ namespace WebCarApplication.Models.Repositories
         {
             _context = context;
         }
-        public IEnumerable<Modele> RecupererModeleSelonMarque(int marqueId)
-        {
-            return _context.Modeles.Where(m => m.MarqueId == marqueId).ToList();
-        }
+  
         public IEnumerable<Modele> RecupererTousLesModeles()
         {
             return _context.Modeles.ToList();
+        }
+        public Modele? RecupererModeleSelonId(int modeleId)
+        {
+            return _context.Modeles.FirstOrDefault(m => m.Id == modeleId);
         }
     }
 }

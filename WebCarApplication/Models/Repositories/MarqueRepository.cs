@@ -16,5 +16,9 @@ namespace WebCarApplication.Models.Repositories
         {
             return _context.Marques.ToList();
         }
+        public Marque? RecupererMarqueSelonId(int id)
+        {
+            return _context.Marques.FirstOrDefault(m => m.Id == id);
+        }
     }
 }

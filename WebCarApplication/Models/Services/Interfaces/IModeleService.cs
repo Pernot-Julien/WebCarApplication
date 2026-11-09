@@ -4,7 +4,7 @@ namespace WebCarApplication.Models.Services.Interfaces
 {
     public interface IModeleService
     {
-        public IEnumerable<Modele> RecupererModeleSelonMarque(int marqueId);
+        public Modele? RecupererModeleSelonId(int modeleId);
         public IEnumerable<Modele> RecupererTousLesModeles();
     }
 }

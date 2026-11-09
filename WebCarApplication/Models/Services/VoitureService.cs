@@ -30,10 +30,14 @@ namespace WebCarApplication.Models.Services
             _voitureRepository.AjouterVoiture(voiture);
             return voiture;
         }
-        public IEnumerable<Photo> RecupererPhotosSelonVoiture(int voitureId)
+        public void ModifierVoiture(Voiture voiture)
         {
-            return _voitureRepository.RecupererPhotosSelonVoiture(voitureId);
+            _voitureRepository.ModifierVoiture(voiture);
         }
 
+        public Voiture? RechercherVoitureParId(int id)
+        {
+            return _voitureRepository.RechercherVoitureParId(id);
+        }
     }
 }

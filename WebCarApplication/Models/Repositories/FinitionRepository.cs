@@ -13,9 +13,9 @@ namespace WebCarApplication.Models.Repositories
             _context = context;
         }
 
-        public IEnumerable<Finition> RecupererFinitionsSelonModele(int modeleId)
+        public Finition RecupererFinitionSelonId(int finitionId)
         {
-            return _context.Finitions.Where(f => f.ModeleId == modeleId).ToList();
+            return _context.Finitions.FirstOrDefault(f => f.Id == finitionId);
         }
 
         public IEnumerable<Finition> RecupererToutesLesFinitions()

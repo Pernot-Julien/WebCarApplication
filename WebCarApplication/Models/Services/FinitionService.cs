@@ -12,9 +12,9 @@ namespace WebCarApplication.Models.Services
             {
                 _finitionRepository = finitionRepository;
             }
-        public IEnumerable<Finition> RecupererFinitionsSelonModele(int modeleId)
+        public Finition RecupererFinitionSelonId(int finitionId)
         {
-           return _finitionRepository.RecupererFinitionsSelonModele(modeleId);
+           return _finitionRepository.RecupererFinitionSelonId(finitionId);
         }
         public IEnumerable<Finition> RecupererToutesLesFinitions()
         {

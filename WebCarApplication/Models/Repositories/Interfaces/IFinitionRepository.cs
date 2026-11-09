@@ -3,7 +3,7 @@ namespace WebCarApplication.Models.Repositories.Interfaces
 {
     public interface IFinitionRepository
     {
-        public IEnumerable<Finition> RecupererFinitionsSelonModele(int modeleId);
+        public Finition RecupererFinitionSelonId(int finitionId);
 
         public IEnumerable<Finition> RecupererToutesLesFinitions();
      }

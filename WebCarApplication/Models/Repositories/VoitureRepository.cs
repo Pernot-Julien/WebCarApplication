@@ -14,7 +14,7 @@ public class VoitureRepository : IVoitureRepository
     {
         return _context.Voitures.ToList();
     }
-    public Voiture? ObtenirVoitureParId(int id)
+    public Voiture? RechercherVoitureParId(int id)
     {
         return _context.Voitures.FirstOrDefault(v => v.Id == id);
     }
@@ -30,15 +30,12 @@ public class VoitureRepository : IVoitureRepository
     }
     public void SupprimerVoiture(int id)
     {
-        var voiture = ObtenirVoitureParId(id);
+        var voiture = RechercherVoitureParId(id);
         if (voiture != null)
         {
             _context.Voitures.Remove(voiture);
             _context.SaveChanges();
         }
     }
-    public IEnumerable<Photo> RecupererPhotosSelonVoiture(int voitureId)
-    {
-        return _context.Photos.Where(p => p.VoitureId == voitureId).ToList();
-    }
+    
 }
