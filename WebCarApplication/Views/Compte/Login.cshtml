@@ -1,0 +1,42 @@
+﻿@model WebCarApplication.Models.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Connexion";
+}
+
+<h1>Express Voitures</h1>
+
+<form asp-action="Login" method="post">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div>
+        <label asp-for="Email">Adresse email</label>
+        <br />
+        <input asp-for="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Password">Mot de passe</label>
+        <br />
+        <input asp-for="Password" type="password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <br /><br />
+
+    <button type="submit">Se connecter</button>
+
+    ou
+
+    <a asp-action="Register">S'inscrire</a>
+
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

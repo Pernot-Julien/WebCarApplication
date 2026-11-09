@@ -152,5 +152,48 @@ namespace WebCarApplication.Controllers
 
             return View(updateVoitureViewModel);
         }
+
+        [HttpPost]
+        public IActionResult Update(UpdateVoitureViewModel updateVoitureViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                updateVoitureViewModel.MarquesDisponibles = _marqueService
+                    .RecupererToutesLesMarques()
+                    .Select(m => new SelectListItem
+                    {
+                        Value = m.Id.ToString(),
+                        Text = m.NomMarque
+                    }).ToList();
+                return View(updateVoitureViewModel);
+            }
+            var voiture = _voitureService.RechercherVoitureParId(updateVoitureViewModel.Id);
+            if (voiture == null)
+            {
+                return NotFound();
+            }
+            voiture.CodeVin = updateVoitureViewModel.CodeVin;
+            voiture.Annee = updateVoitureViewModel.Annee;
+            voiture.DateAchat = updateVoitureViewModel.DateAchat;
+            voiture.PrixAchat = updateVoitureViewModel.PrixAchat;
+            voiture.DateDisponibilite = updateVoitureViewModel.DateDisponibilite;
+            voiture.FinitionId = updateVoitureViewModel.FinitionId;
+            if (updateVoitureViewModel.Photo != null)
+            {
+                var fileName = updateVoitureViewModel.Photo.FileName;
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "voitures", fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    updateVoitureViewModel.Photo.CopyToAsync(stream);
+                }
+                voiture.Photos.Clear();
+                voiture.Photos.Add(new Photo
+                {
+                    Url = fileName
+                });
+            }
+            _voitureService.ModifierVoiture(voiture);
+            return RedirectToAction("Update", new { id = voiture.Id });
+        }
     }
-    }
+}
