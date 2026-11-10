@@ -1,5 +1,4 @@
 ﻿using WebCarApplication.Models.Entities;
-using WebCarApplication.Models.Repositories;
 using WebCarApplication.Models.Repositories.Interfaces;
 using WebCarApplication.Models.Services.Interfaces;
 
@@ -38,6 +37,14 @@ namespace WebCarApplication.Models.Services
         public Voiture? RechercherVoitureParId(int id)
         {
             return _voitureRepository.RechercherVoitureParId(id);
+        }
+        public Voiture? SupprimerVoiture(int id)
+        {
+            return _voitureRepository.SupprimerVoiture(id);
+        }
+        public IEnumerable<Voiture> ObtenirToutesLesVoitures()
+        {
+            return _voitureRepository.ObtenirToutesLesVoitures();
         }
     }
 }

@@ -7,5 +7,8 @@ namespace WebCarApplication.Models.Services.Interfaces
         public Voiture AjouterVoiture(Voiture voiture);
         public void ModifierVoiture(Voiture voiture);
         public Voiture? RechercherVoitureParId(int id);
+        public Voiture? SupprimerVoiture(int id);
+        public IEnumerable<Voiture> ObtenirToutesLesVoitures();
+
     }
 }

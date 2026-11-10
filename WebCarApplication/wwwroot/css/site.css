@@ -20,3 +20,45 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 38px;
+    font-style: italic;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 50px;
+    color: #796157;
+    font-style: italic;
+}
+
+.liste-voitures {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 80px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.carte-voiture {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.carte-voiture img {
+    width: 250px;
+    height: 160px;
+    object-fit: cover;
+}
+
+.infos-voiture h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.infos-voiture p {
+    margin: 4px 0;
+    color: #796157;
+    font-size: 20px;
+}

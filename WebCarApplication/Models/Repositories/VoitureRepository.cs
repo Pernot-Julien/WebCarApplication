@@ -28,7 +28,7 @@ public class VoitureRepository : IVoitureRepository
         _context.Voitures.Update(voiture);
         _context.SaveChanges();
     }
-    public void SupprimerVoiture(int id)
+    public Voiture? SupprimerVoiture(int id)
     {
         var voiture = RechercherVoitureParId(id);
         if (voiture != null)
@@ -36,6 +36,7 @@ public class VoitureRepository : IVoitureRepository
             _context.Voitures.Remove(voiture);
             _context.SaveChanges();
         }
+        return voiture;
     }
     
 }

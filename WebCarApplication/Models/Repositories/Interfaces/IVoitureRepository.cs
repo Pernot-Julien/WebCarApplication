@@ -7,7 +7,7 @@ namespace WebCarApplication.Models.Repositories.Interfaces
         public Voiture? RechercherVoitureParId(int id);   
         public void AjouterVoiture(Voiture voiture);
         public void ModifierVoiture(Voiture voiture);
-        public void SupprimerVoiture(int id);
+        public Voiture? SupprimerVoiture(int id);
         
     }
 }
