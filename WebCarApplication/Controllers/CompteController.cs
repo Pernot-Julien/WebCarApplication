@@ -42,7 +42,7 @@ namespace WebCarApplication.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Voitures");
+                return RedirectToAction("Index", "Home");
             }
 
             ModelState.AddModelError("", "Email ou mot de passe incorrect.");

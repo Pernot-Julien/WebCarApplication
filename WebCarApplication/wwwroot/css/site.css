@@ -36,8 +36,7 @@ h1 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 40px 80px;
-    max-width: 1000px;
-    margin: 0 auto;
+    max-width: 1500px;
 }
 
 .carte-voiture {
@@ -47,18 +46,67 @@ h1 {
 }
 
 .carte-voiture img {
-    width: 250px;
-    height: 160px;
+    width: 400px;
+    height: 350px;
     object-fit: cover;
 }
+.infos-voiture  {
+    margin-top: 100px;
+}
+
 
 .infos-voiture h3 {
-    margin-top: 0;
+    display: flex;
+    justify-content: flex-start;
+    color: #2C1810;
     margin-bottom: 10px;
 }
 
 .infos-voiture p {
-    margin: 4px 0;
+    display:flex;
+    justify-content: flex-start;
+    margin: 4px;
     color: #796157;
     font-size: 20px;
+}
+.navbar-custom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 80px;
+    background-color: #f3f3f3;
+}
+
+.logo a {
+    text-decoration: none;
+    color: black;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 18px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+    .menu a {
+        text-decoration: none;
+        color: black;
+        font-family: 'Libre Baskerville', serif;
+        font-size: 14px;
+    }
+
+.btn-logout {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    color: black;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14px;
+}
+
+img {
+    border-radius:10px;
 }

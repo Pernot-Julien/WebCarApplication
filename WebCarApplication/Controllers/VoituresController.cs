@@ -24,43 +24,6 @@ namespace WebCarApplication.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
-        {
-            var voituresStockees = _voitureService.ObtenirToutesLesVoitures();
-            List<ListeVoitureViewModel> voitures = new();
-
-            foreach (var voiture in voituresStockees)
-            {
-                var finition = _finitionService
-                    .RecupererFinitionSelonId(voiture.FinitionId);
-
-                var modele = _modeleService
-                    .RecupererModeleSelonId(finition.ModeleId);
-
-                var marque = _marqueService
-                    .RecupererMarqueSelonId(modele.MarqueId);
-
-                var photos = _photoService.RecupererPhotosSelonIdVoiture(voiture.Id);
-
-                voitures.Add(new ListeVoitureViewModel
-                {
-                    Id = voiture.Id,
-                    CodeVin = voiture.CodeVin,
-                    Annee = voiture.Annee,
-                    PrixAchat = voiture.PrixAchat,
-
-                    Marque = marque.NomMarque,
-                    Modele = modele.NomModele,
-                    Finition = finition.NomFinition,
-
-                    PhotoUrl = photos.FirstOrDefault()?.Url
-                });
-            }
-
-            return View(voitures);
-        }
-
-        [HttpGet]
         public IActionResult Create()
         {
             var createVoitureViewModel = new CreateVoitureViewModel();

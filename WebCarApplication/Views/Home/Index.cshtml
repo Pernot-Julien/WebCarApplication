@@ -1,7 +1,39 @@
-﻿@{
+﻿@model IEnumerable<WebCarApplication.Models.ViewModels.ListeVoitureViewModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Express Voitures</h1>
-  
+
+    <h1 class="display-4">Nos Voitures</h1>
+
+    <div class="liste-voitures">
+
+        @foreach (var voiture in Model)
+        {
+            <div class="carte-voiture">
+
+                <img src="~/images/voitures/@voiture.PhotoUrl"
+                     alt="Photo voiture" />
+
+                <div class="infos-voiture">
+
+                    <h3>@voiture.PrixAchat €</h3>
+
+                    <p>Année : @voiture.Annee</p>
+
+                    <p>Marque : @voiture.Marque</p>
+
+                    <p>Modèle : @voiture.Modele</p>
+
+                    <p>Finition : @voiture.Finition</p>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>
