@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using WebCarApplication.Models.Entities;
 using WebCarApplication.Models.Services.Interfaces;
 using WebCarApplication.Models.ViewModels;
 
@@ -13,6 +14,7 @@ namespace WebCarApplication.Controllers
         private readonly IFinitionService _finitionService;
         private readonly IVoitureService _voitureService;
         private readonly IPhotoService _photoService;
+   
 
         public HomeController(ILogger<HomeController> logger, IVoitureService voitureService, IMarqueService marqueService, IModeleService modeleService, IFinitionService finitionService, IPhotoService photoService)
         {
@@ -22,6 +24,7 @@ namespace WebCarApplication.Controllers
             _modeleService = modeleService;
             _finitionService = finitionService;
             _photoService = photoService;
+       
         }
  
         public IActionResult Index()
@@ -47,12 +50,9 @@ namespace WebCarApplication.Controllers
                     Id = voiture.Id,
                     CodeVin = voiture.CodeVin,
                     Annee = voiture.Annee,
-                    PrixAchat = voiture.PrixAchat,
-
                     Marque = marque.NomMarque,
                     Modele = modele.NomModele,
                     Finition = finition.NomFinition,
-
                     PhotoUrl = photos.FirstOrDefault()?.Url
                 });
             }

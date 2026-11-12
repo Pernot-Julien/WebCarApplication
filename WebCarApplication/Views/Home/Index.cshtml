@@ -18,8 +18,27 @@
                      alt="Photo voiture" />
 
                 <div class="infos-voiture">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a asp-controller="Voitures"
+                           asp-action="Update"
+                           asp-route-id="@voiture.Id">
+                            Modifier la voiture
+                        </a>
+                        <form asp-controller="Voitures"
+                          asp-action="Delete"
+                          asp-route-id="@voiture.Id"
+                          method="post"
+                          onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette voiture ?');">
 
-                    <h3>@voiture.PrixAchat €</h3>
+                        <button type="submit">
+                            Supprimer la voiture
+                        </button>
+
+</form>
+
+                    }
+                    <h3>Prix de vente</h3>
 
                     <p>Année : @voiture.Annee</p>
 

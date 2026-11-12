@@ -57,6 +57,19 @@
         <span asp-validation-for="DateAchat" class="text-danger"></span>
     </div>
     <br />
+    <div>
+        <label asp-for="DescriptionReparation"></label><br />
+        <input asp-for="DescriptionReparation" />
+        <span asp-validation-for="DescriptionReparation" class="text-danger"></span>
+    </div>
+    <br />
+
+    <div>
+        <label asp-for="CoutReparation"></label><br />
+        <input asp-for="CoutReparation" type="number" step="0.01" />
+        <span asp-validation-for="CoutReparation" class="text-danger"></span>
+    </div>
+    <br />
 
     <div>
         <label asp-for="PrixAchat"></label><br />

@@ -13,14 +13,16 @@ namespace WebCarApplication.Controllers
         private readonly IFinitionService _finitionService;
         private readonly IVoitureService _voitureService;
         private readonly IPhotoService _photoService;
+        private readonly IReparationService _reparationService;
 
-        public VoituresController(IVoitureService voitureService, IMarqueService marqueService, IModeleService modeleService, IFinitionService finitionService, IPhotoService photoService  )
+        public VoituresController(IVoitureService voitureService, IMarqueService marqueService, IModeleService modeleService, IFinitionService finitionService, IPhotoService photoService, IReparationService reparationService)
         {
             _voitureService = voitureService;
             _marqueService = marqueService;
             _modeleService = modeleService;
             _finitionService = finitionService;
             _photoService = photoService;
+            _reparationService = reparationService;
         }
 
         [HttpGet]
@@ -65,7 +67,7 @@ namespace WebCarApplication.Controllers
                 return View(createVoitureViewModel);
             }
 
-            var voiture = new Models.Entities.Voiture
+            var voiture = new Voiture
             {
                 CodeVin = createVoitureViewModel.CodeVin,
                 Annee = createVoitureViewModel.Annee,
@@ -73,7 +75,19 @@ namespace WebCarApplication.Controllers
                 PrixAchat = createVoitureViewModel.PrixAchat,
                 DateDisponibilite = createVoitureViewModel.DateDisponibilite,
                 FinitionId = createVoitureViewModel.FinitionId,
+                Photos = new List<Photo>(),
+
             };
+            _voitureService.AjouterVoiture(voiture);
+
+            var reparation = new Reparation
+            {
+                DescriptionReparation = createVoitureViewModel.DescriptionReparation,
+                CoutReparation = createVoitureViewModel.CoutReparation,
+                VoitureId = voiture.Id
+            };
+
+            _reparationService.EnregistrerReparation(reparation);
 
             if (createVoitureViewModel.Photo != null)
             {
@@ -90,11 +104,7 @@ namespace WebCarApplication.Controllers
                 {
                     Url = fileName
                 });
-
-
             }
-            _voitureService.AjouterVoiture(voiture);
-
             return RedirectToAction("Create");
         }
 
@@ -194,6 +204,17 @@ namespace WebCarApplication.Controllers
             }
             _voitureService.ModifierVoiture(voiture);
             return RedirectToAction("Update", new { id = voiture.Id });
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var voiture = _voitureService.SupprimerVoiture(id);
+            if (voiture == null)
+            {
+                return NotFound();
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -4,7 +4,7 @@ namespace WebCarApplication.Models.Repositories.Interfaces
 {
     public interface IModeleRepository
     {
-        public Modele? RecupererModeleSelonId(int modeleId);
-        public IEnumerable<Modele> RecupererTousLesModeles();
+       Modele? RecupererModeleSelonId(int modeleId);
+       IEnumerable<Modele> RecupererTousLesModeles();
     }
 }

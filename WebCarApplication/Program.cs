@@ -28,6 +28,8 @@ builder.Services.AddScoped<IFinitionRepository, FinitionRepository>();
 builder.Services.AddScoped<IFinitionService, FinitionService>();
 builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
+builder.Services.AddScoped<IReparationRepository, ReparationRepository>();
+builder.Services.AddScoped<IReparationService, ReparationService>();
 
 var app = builder.Build();
 
