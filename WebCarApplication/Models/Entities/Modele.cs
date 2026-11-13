@@ -7,6 +7,6 @@
         public int MarqueId { get; set; }
         public Marque? Marque { get; set; }
 
-        public ICollection<Finition> Finitions { get; set; } = new List<Finition>();
+        public ICollection<ModeleFinition> ModeleFinitions { get; set; } = new List<ModeleFinition>();
     }
 }

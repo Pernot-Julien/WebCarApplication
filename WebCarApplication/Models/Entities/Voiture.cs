@@ -11,11 +11,11 @@
         public DateTime? DateVente { get; set; }
         public string? Description { get; set; }
 
-        public int FinitionId { get; set; }
-        public Finition? Finition { get; set; }
+        public int ModeleFinitionId { get; set; }
+        public ModeleFinition ModeleFinition { get; set; } = null!;
 
-        public ICollection<Photo> Photos { get; set; } = new List<Photo>();
         public ICollection<Reparation> Reparations { get; set; } = new List<Reparation>();
+        public ICollection<Photo> Photos { get; set; } = new List<Photo>();
 
     }
 }

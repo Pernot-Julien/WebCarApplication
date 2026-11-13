@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebCarApplication.Models.Entities;
+using WebCarApplication.Models.Services;
 using WebCarApplication.Models.Services.Interfaces;
 using WebCarApplication.Models.ViewModels;
 
@@ -14,8 +15,9 @@ namespace WebCarApplication.Controllers
         private readonly IVoitureService _voitureService;
         private readonly IPhotoService _photoService;
         private readonly IReparationService _reparationService;
+        private readonly IModeleFinitionService _modeleFinitionService;
 
-        public VoituresController(IVoitureService voitureService, IMarqueService marqueService, IModeleService modeleService, IFinitionService finitionService, IPhotoService photoService, IReparationService reparationService)
+        public VoituresController(IVoitureService voitureService, IMarqueService marqueService, IModeleService modeleService, IFinitionService finitionService, IPhotoService photoService, IReparationService reparationService, IModeleFinitionService modeleFinitionService)
         {
             _voitureService = voitureService;
             _marqueService = marqueService;
@@ -23,6 +25,7 @@ namespace WebCarApplication.Controllers
             _finitionService = finitionService;
             _photoService = photoService;
             _reparationService = reparationService;
+            _modeleFinitionService = modeleFinitionService;     
         }
 
         [HttpGet]
@@ -74,7 +77,7 @@ namespace WebCarApplication.Controllers
                 DateAchat = createVoitureViewModel.DateAchat,
                 PrixAchat = createVoitureViewModel.PrixAchat,
                 DateDisponibilite = createVoitureViewModel.DateDisponibilite,
-                FinitionId = createVoitureViewModel.FinitionId,
+                ModeleFinitionId = createVoitureViewModel.ModeleFinitionId,
                 Photos = new List<Photo>(),
 
             };
@@ -118,8 +121,8 @@ namespace WebCarApplication.Controllers
                 return NotFound();
             }
 
-            var finition = _finitionService.RecupererFinitionSelonId(voiture.FinitionId);
-            var modele = _modeleService.RecupererModeleSelonId(finition.ModeleId);
+            var modeleFinition = _modeleFinitionService.RecupererModeleFinitionSelonId(voiture.ModeleFinitionId);
+            var modele = _modeleService.RecupererModeleSelonId(modeleFinition.ModeleId);
             var marque = _marqueService.RecupererMarqueSelonId(modele.MarqueId);
             var photos = _photoService.RecupererPhotosSelonIdVoiture(voiture.Id);
 
@@ -145,7 +148,7 @@ namespace WebCarApplication.Controllers
                         Value = m.Id.ToString(),
                         Text = m.NomModele
                     }).ToList(),
-                FinitionId = finition.Id,
+                ModeleFinitionId = modeleFinition.Id,
                 FinitionsDisponibles = _finitionService
                     .RecupererToutesLesFinitions()
                     .Select(f => new SelectListItem
@@ -187,7 +190,7 @@ namespace WebCarApplication.Controllers
             voiture.DateAchat = updateVoitureViewModel.DateAchat;
             voiture.PrixAchat = updateVoitureViewModel.PrixAchat;
             voiture.DateDisponibilite = updateVoitureViewModel.DateDisponibilite;
-            voiture.FinitionId = updateVoitureViewModel.FinitionId;
+            voiture.ModeleFinitionId = updateVoitureViewModel.ModeleFinitionId;
             if (updateVoitureViewModel.Photo != null)
             {
                 var fileName = updateVoitureViewModel.Photo.FileName;

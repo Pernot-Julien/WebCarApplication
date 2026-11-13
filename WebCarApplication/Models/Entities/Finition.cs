@@ -8,6 +8,6 @@
         public int ModeleId { get; set; }
         public Modele? Modele { get; set; }
 
-        public ICollection<Voiture> Voiture { get; set; } = new List<Voiture>();
+        public ICollection<ModeleFinition> ModeleFinitions { get; set; } = new List<ModeleFinition>();
     }
 }

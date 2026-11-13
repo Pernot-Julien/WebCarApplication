@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WebCarApplication.Models.Entities;
 using WebCarApplication.Models.Services.Interfaces;
 using WebCarApplication.Models.ViewModels;
 
@@ -14,9 +13,9 @@ namespace WebCarApplication.Controllers
         private readonly IFinitionService _finitionService;
         private readonly IVoitureService _voitureService;
         private readonly IPhotoService _photoService;
-   
+        private readonly IModeleFinitionService _modeleFinitionService;
 
-        public HomeController(ILogger<HomeController> logger, IVoitureService voitureService, IMarqueService marqueService, IModeleService modeleService, IFinitionService finitionService, IPhotoService photoService)
+        public HomeController(ILogger<HomeController> logger, IVoitureService voitureService, IMarqueService marqueService, IModeleService modeleService, IFinitionService finitionService, IPhotoService photoService, IModeleFinitionService modeleFinitionService)
         {
             _logger = logger;
             _voitureService = voitureService;
@@ -24,7 +23,7 @@ namespace WebCarApplication.Controllers
             _modeleService = modeleService;
             _finitionService = finitionService;
             _photoService = photoService;
-       
+            _modeleFinitionService = modeleFinitionService;
         }
  
         public IActionResult Index()
@@ -34,11 +33,14 @@ namespace WebCarApplication.Controllers
 
             foreach (var voiture in voituresStockees)
             {
+                var modeleFinition = _modeleFinitionService
+                    .RecupererModeleFinitionSelonId(voiture.ModeleFinitionId);
+
                 var finition = _finitionService
-                    .RecupererFinitionSelonId(voiture.FinitionId);
+                    .RecupererFinitionSelonId(modeleFinition.FinitionId);
 
                 var modele = _modeleService
-                    .RecupererModeleSelonId(finition.ModeleId);
+                    .RecupererModeleSelonId(modeleFinition.ModeleId);
 
                 var marque = _marqueService
                     .RecupererMarqueSelonId(modele.MarqueId);

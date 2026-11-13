@@ -40,7 +40,7 @@ namespace WebCarApplication.Models.ViewModels
         [Required(ErrorMessage = "La finition est obligatoire")]
         [Range(1, int.MaxValue, ErrorMessage = "Veuillez sélectionner une finition")]
         [Display(Name = "Finition")]
-        public int FinitionId { get; set; }
+        public int ModeleFinitionId { get; set; }
 
         [Display(Name = "Photo")]
         public IFormFile? Photo { get; set; }
