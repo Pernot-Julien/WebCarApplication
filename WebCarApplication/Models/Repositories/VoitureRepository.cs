@@ -1,4 +1,5 @@
-﻿using WebCarApplication.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WebCarApplication.Data;
 using WebCarApplication.Models.Entities;
 using WebCarApplication.Models.Repositories.Interfaces;
 namespace WebCarApplication.Models.Repositories;
@@ -12,7 +13,9 @@ public class VoitureRepository : IVoitureRepository
     }
     public IEnumerable<Voiture> ObtenirToutesLesVoitures()
     {
-        return _context.Voitures.ToList();
+        return _context.Voitures
+            .Include(v => v.Reparations)
+            .ToList();
     }
     public Voiture? RechercherVoitureParId(int id)
     {

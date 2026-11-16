@@ -51,6 +51,7 @@ namespace WebCarApplication.Controllers
                 {
                     Id = voiture.Id,
                     CodeVin = voiture.CodeVin,
+                    Prix = _voitureService.CalculerPrixVente(voiture, voiture.Reparations),
                     Annee = voiture.Annee,
                     Marque = marque.NomMarque,
                     Modele = modele.NomModele,

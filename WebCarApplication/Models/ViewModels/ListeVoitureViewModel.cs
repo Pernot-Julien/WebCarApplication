@@ -5,9 +5,11 @@
         public int Id { get; set; }
 
         public int? CodeVin { get; set; }
-       
+
+        public decimal Prix { get; set; } 
+
         public string PhotoUrl { get; set; } = string.Empty;
-     
+
         public string Marque { get; set; } = string.Empty;
 
         public string Modele { get; set; } = string.Empty;
