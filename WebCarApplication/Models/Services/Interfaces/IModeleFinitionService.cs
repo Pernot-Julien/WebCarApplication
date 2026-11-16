@@ -4,5 +4,7 @@ namespace WebCarApplication.Models.Services.Interfaces
     public interface IModeleFinitionService
     {
         ModeleFinition RecupererModeleFinitionSelonId(int id);
+        IEnumerable<ModeleFinition> RecupererToutesLesModeleFinitions();
+        IEnumerable<ModeleFinition> RecupererModeleFinitionsSelonModeleId(int modeleId);
     }
 }

@@ -232,16 +232,11 @@ namespace WebCarApplication.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ModeleId")
-                        .HasColumnType("int");
-
                     b.Property<string>("NomFinition")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ModeleId");
 
                     b.ToTable("Finitions");
                 });
@@ -303,7 +298,8 @@ namespace WebCarApplication.Migrations
 
                     b.HasIndex("FinitionId");
 
-                    b.HasIndex("ModeleId");
+                    b.HasIndex("ModeleId", "FinitionId")
+                        .IsUnique();
 
                     b.ToTable("ModeleFinitions");
                 });
@@ -450,21 +446,10 @@ namespace WebCarApplication.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebCarApplication.Models.Entities.Finition", b =>
-                {
-                    b.HasOne("WebCarApplication.Models.Entities.Modele", "Modele")
-                        .WithMany()
-                        .HasForeignKey("ModeleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Modele");
-                });
-
             modelBuilder.Entity("WebCarApplication.Models.Entities.Modele", b =>
                 {
                     b.HasOne("WebCarApplication.Models.Entities.Marque", "Marque")
-                        .WithMany("Modele")
+                        .WithMany("Modeles")
                         .HasForeignKey("MarqueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -531,7 +516,7 @@ namespace WebCarApplication.Migrations
 
             modelBuilder.Entity("WebCarApplication.Models.Entities.Marque", b =>
                 {
-                    b.Navigation("Modele");
+                    b.Navigation("Modeles");
                 });
 
             modelBuilder.Entity("WebCarApplication.Models.Entities.Modele", b =>

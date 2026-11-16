@@ -38,19 +38,42 @@ namespace WebCarApplication.Controllers
                 Value = m.Id.ToString(),
                 Text = m.NomMarque
             }).ToList();
-            createVoitureViewModel.ModelesDisponibles = _modeleService.RecupererTousLesModeles().Select(m => new SelectListItem
-            {
-                Value = m.Id.ToString(),
-                Text = m.NomModele
-            }).ToList();
 
-            createVoitureViewModel.FinitionsDisponibles = _finitionService.RecupererToutesLesFinitions().Select(f => new SelectListItem
-            {
-                Value = f.Id.ToString(),
-                Text = f.NomFinition
-            }).ToList();
+            createVoitureViewModel.ModelesDisponibles = new List<SelectListItem>();
+
+            createVoitureViewModel.FinitionsDisponibles = new List<SelectListItem>();
 
             return View(createVoitureViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult RecupererModelesParMarque(int marqueId)
+        {
+            var modeles = _modeleService
+                .RecupererModelesSelonMarqueId(marqueId);
+
+            var result = modeles.Select(m => new
+            {
+                id = m.Id,
+                nom = m.NomModele
+            });
+
+            return Json(result);
+        }
+
+        [HttpGet]
+        public IActionResult RecupererFinitionsParModele(int modeleId)
+        {
+            var finitions = _modeleFinitionService
+                .RecupererModeleFinitionsSelonModeleId(modeleId);
+
+            var result = finitions.Select(mf => new
+            {
+                id = mf.Id,
+                nom = mf.Finition.NomFinition
+            });
+
+            return Json(result);
         }
 
 

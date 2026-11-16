@@ -1,4 +1,5 @@
-﻿using WebCarApplication.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WebCarApplication.Data;
 using WebCarApplication.Models.Entities;
 using WebCarApplication.Models.Repositories.Interfaces;
 
@@ -17,6 +18,19 @@ namespace WebCarApplication.Models.Repositories
         {
             return _context.ModeleFinitions
                 .FirstOrDefault(mf => mf.Id == id);
+        }
+
+        public IEnumerable<ModeleFinition> RecupererToutesLesModeleFinitions()
+        {
+            return _context.ModeleFinitions.ToList();
+        }
+
+        public IEnumerable<ModeleFinition> RecupererModeleFinitionsSelonModeleId(int modeleId)
+        {
+            return _context.ModeleFinitions
+                .Include(mf => mf.Finition)
+                .Where(mf => mf.ModeleId == modeleId)
+                .ToList();
         }
     }
 }

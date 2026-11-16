@@ -21,5 +21,10 @@ namespace WebCarApplication.Models.Repositories
         {
             return _context.Modeles.FirstOrDefault(m => m.Id == modeleId);
         }
+
+        public IEnumerable<Modele> RecupererModelesSelonMarqueId(int marqueId)
+        {
+            return _context.Modeles.Where(m => m.MarqueId == marqueId).ToList();
+        }
     }
 }

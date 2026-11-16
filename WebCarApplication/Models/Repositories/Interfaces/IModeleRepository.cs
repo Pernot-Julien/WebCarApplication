@@ -6,5 +6,6 @@ namespace WebCarApplication.Models.Repositories.Interfaces
     {
        Modele? RecupererModeleSelonId(int modeleId);
        IEnumerable<Modele> RecupererTousLesModeles();
+       IEnumerable<Modele> RecupererModelesSelonMarqueId(int marqueId);
     }
 }

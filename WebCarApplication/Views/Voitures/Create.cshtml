@@ -106,4 +106,74 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script>
+        // Récupération des trois listes déroulantes
+        const marqueSelect = document.getElementById("MarqueId");
+        const modeleSelect = document.getElementById("ModeleId");
+        const finitionSelect = document.getElementById("ModeleFinitionId");
+
+        // URL des deux actions du contrôleur
+        const urlModeles = '@Url.Action("RecupererModelesParMarque", "Voitures")';
+        const urlFinitions = '@Url.Action("RecupererFinitionsParModele", "Voitures")';
+
+        // Quand on change de marque
+        marqueSelect.addEventListener("change", async function () {
+
+            const marqueId = this.value;
+
+            // On réinitialise les listes Modèle et Finition
+            modeleSelect.innerHTML = '<option value="">-- Modèle --</option>';
+            finitionSelect.innerHTML = '<option value="">-- Finition --</option>';
+
+            if (!marqueId) {
+                return;
+            }
+
+            // On demande au contrôleur les modèles de cette marque
+            const reponse = await fetch(`${urlModeles}?marqueId=${(marqueId)}`);
+
+            if (!reponse.ok) {
+                console.error("Erreur lors du chargement des modèles");
+                return;
+            }
+
+            const modeles = await reponse.json();
+
+            // On ajoute les modèles dans la deuxième liste
+            modeles.forEach(modele => {
+                modeleSelect.add(new Option(modele.nom, modele.id));
+            });
+        });
+
+        // Quand on change de modèle
+        modeleSelect.addEventListener("change", async function () {
+
+            const modeleId = this.value;
+
+            // On réinitialise la liste Finition
+            finitionSelect.innerHTML = '<option value="">-- Finition --</option>';
+
+            if (!modeleId) {
+                return;
+            }
+
+            // On demande au contrôleur les finitions de ce modèle
+            const reponse = await fetch(`${urlFinitions}?modeleId=${(modeleId)}`);
+
+            if (!reponse.ok) {
+                console.error("Erreur lors du chargement des finitions");
+                return;
+            }
+
+            const finitions = await reponse.json();
+
+            // On ajoute les finitions dans la troisième liste
+            finitions.forEach(finition => {
+                finitionSelect.add(new Option(finition.nom, finition.id));
+            });
+        });
+    </script>
 }
+   
+
