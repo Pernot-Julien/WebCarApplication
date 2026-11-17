@@ -4,6 +4,12 @@
     ViewData["Title"] = "Home Page";
 }
 
+@if (TempData["Message"] != null)
+{
+    <p class="message-success">@TempData["Message"]</p>
+}
+
+
 <div class="text-center">
 
     <h1 class="display-4">Nos Voitures</h1>
@@ -42,7 +48,7 @@
 
                     }
 
-                    <h3>@voiture.Prix</h3>
+                    <h3>@voiture.Prix €</h3>
 
                     <p>Année : @voiture.Annee</p>
 

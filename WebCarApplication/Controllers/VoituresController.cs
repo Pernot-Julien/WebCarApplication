@@ -147,7 +147,15 @@ namespace WebCarApplication.Controllers
 
             _reparationService.EnregistrerReparation(reparation);
 
-            return RedirectToAction("Create");
+            TempData["Message"] = "La voiture a bien été ajoutée.";
+
+            return RedirectToAction("ConfirmationCreate");
+        }
+
+        [Authorize]
+        public IActionResult ConfirmationCreate()
+        {
+            return View();
         }
 
 
@@ -263,8 +271,15 @@ namespace WebCarApplication.Controllers
                 });
             }
             _voitureService.ModifierVoiture(voiture);
-            return RedirectToAction("Update", new { id = voiture.Id });
+            TempData["Message"] = "La voiture a bien été modifiée.";
+
+            return RedirectToAction("ConfirmationUpdate"); ;
         }
+
+        public IActionResult ConfirmationUpdate()
+        {
+            return View();
+        }   
 
         [Authorize]
         [HttpPost]
