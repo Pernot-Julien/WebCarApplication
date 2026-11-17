@@ -7,10 +7,12 @@ namespace WebCarApplication.Models.Services
     public class VoitureService : IVoitureService   
     {
         private readonly IVoitureRepository _voitureRepository;
+        private readonly IParametresApplicationService _parametresApplicationService;
 
-        public VoitureService(IVoitureRepository voitureRepository)
+        public VoitureService(IVoitureRepository voitureRepository, IParametresApplicationService parametresApplicationService)
         {
             _voitureRepository = voitureRepository;
+            _parametresApplicationService = parametresApplicationService;
         }
         public decimal CalculerPrixVente(Voiture voiture, IEnumerable<Reparation> reparations)
         {
@@ -19,7 +21,8 @@ namespace WebCarApplication.Models.Services
             {
                 coutTotalReparations += reparation.CoutReparation;
             }
-            const decimal margeBenefice = 500; // Revoir pour supprimer la marge en dure
+            ParametresApplication parametres = _parametresApplicationService.RecupererParametres();
+            decimal margeBenefice = parametres.MargeBenefice;
             decimal prixVente = voiture.PrixAchat + coutTotalReparations + margeBenefice;
             return prixVente;
         }

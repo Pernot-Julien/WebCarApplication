@@ -304,6 +304,30 @@ namespace WebCarApplication.Migrations
                     b.ToTable("ModeleFinitions");
                 });
 
+            modelBuilder.Entity("WebCarApplication.Models.Entities.ParametresApplication", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("MargeBenefice")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ParametresApplication");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            MargeBenefice = 500m
+                        });
+                });
+
             modelBuilder.Entity("WebCarApplication.Models.Entities.Photo", b =>
                 {
                     b.Property<int>("Id")
@@ -366,8 +390,8 @@ namespace WebCarApplication.Migrations
                     b.Property<int>("Annee")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CodeVin")
-                        .HasColumnType("int");
+                    b.Property<string>("CodeVin")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateAchat")
                         .HasColumnType("datetime2");
@@ -380,6 +404,9 @@ namespace WebCarApplication.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Disponible")
+                        .HasColumnType("bit");
 
                     b.Property<int>("ModeleFinitionId")
                         .HasColumnType("int");

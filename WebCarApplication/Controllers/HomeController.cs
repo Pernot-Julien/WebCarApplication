@@ -29,6 +29,12 @@ namespace WebCarApplication.Controllers
         public IActionResult Index()
         {
             var voituresStockees = _voitureService.ObtenirToutesLesVoitures();
+
+            if (User.Identity?.IsAuthenticated != true)
+            {
+                voituresStockees = voituresStockees.Where(v => v.Disponible);
+            }
+
             List<ListeVoitureViewModel> voitures = new();
 
             foreach (var voiture in voituresStockees)
@@ -50,12 +56,12 @@ namespace WebCarApplication.Controllers
                 voitures.Add(new ListeVoitureViewModel
                 {
                     Id = voiture.Id,
-                    CodeVin = voiture.CodeVin,
                     Prix = _voitureService.CalculerPrixVente(voiture, voiture.Reparations),
                     Annee = voiture.Annee,
                     Marque = marque.NomMarque,
                     Modele = modele.NomModele,
                     Finition = finition.NomFinition,
+                    Disponible = voiture.Disponible,
                     PhotoUrl = photos.FirstOrDefault()?.Url
                 });
             }

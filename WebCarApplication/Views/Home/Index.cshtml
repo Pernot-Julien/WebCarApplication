@@ -32,11 +32,13 @@
                               method="post"
                               onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette voiture ?');">
 
-                        <button type="submit">
-                            Supprimer la voiture
-                        </button>
-
-</form>
+                            <button type="submit">
+                                Supprimer la voiture
+                            </button>
+                       </form>
+                       <p class="@(voiture.Disponible ? "" : "indisponible")">
+                          @(voiture.Disponible ? "Disponible" : "Indisponible")
+                       </p>
 
                     }
 

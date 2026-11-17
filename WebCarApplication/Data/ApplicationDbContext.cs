@@ -19,6 +19,7 @@ namespace WebCarApplication.Data
         public DbSet<Marque> Marques { get; set; }
         public DbSet<Reparation> Reparations { get; set; }
         public DbSet<ModeleFinition> ModeleFinitions { get; set; }
+        public DbSet<ParametresApplication> ParametresApplication { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -58,6 +59,18 @@ namespace WebCarApplication.Data
             modelBuilder.Entity<ModeleFinition>()
                 .HasIndex(mf => new { mf.ModeleId, mf.FinitionId })
                 .IsUnique();
+
+            // Paramètres de l'application
+            modelBuilder.Entity<ParametresApplication>()
+                .Property(p => p.MargeBenefice)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<ParametresApplication>()
+                .HasData(new ParametresApplication
+                {
+                    Id = 1,
+                    MargeBenefice = 500m
+                });
         }
     }
 }

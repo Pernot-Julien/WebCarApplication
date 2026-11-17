@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebCarApplication.Models.Entities;
 using WebCarApplication.Models.Services;
@@ -28,6 +29,7 @@ namespace WebCarApplication.Controllers
             _modeleFinitionService = modeleFinitionService;     
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Create()
         {
@@ -78,7 +80,7 @@ namespace WebCarApplication.Controllers
 
 
 
-
+        [Authorize]
         [HttpPost]
         public IActionResult Create(CreateVoitureViewModel createVoitureViewModel)
         {
@@ -101,6 +103,7 @@ namespace WebCarApplication.Controllers
                 Annee = createVoitureViewModel.Annee,
                 DateAchat = createVoitureViewModel.DateAchat,
                 PrixAchat = createVoitureViewModel.PrixAchat,
+                Disponible = createVoitureViewModel.Disponible,
                 DateDisponibilite = createVoitureViewModel.DateDisponibilite,
                 ModeleFinitionId = createVoitureViewModel.ModeleFinitionId,
                 Photos = new List<Photo>()
@@ -148,7 +151,7 @@ namespace WebCarApplication.Controllers
         }
 
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult Update(int id)
         {
@@ -169,31 +172,28 @@ namespace WebCarApplication.Controllers
                 Id = voiture.Id,
                 CodeVin = voiture.CodeVin,
                 Annee = voiture.Annee,
+                Disponible = voiture.Disponible,
 
                 MarqueId = marque.Id,
-                MarquesDisponibles = _marqueService
-                    .RecupererToutesLesMarques()
-                    .Select(m => new SelectListItem
+                MarquesDisponibles = _marqueService.RecupererToutesLesMarques().Select(m => new SelectListItem
                     {
                         Value = m.Id.ToString(),
                         Text = m.NomMarque
                     }).ToList(),
+
                 ModeleId = modele.Id,
-                ModelesDisponibles = _modeleService
-                    .RecupererTousLesModeles()
-                    .Select(m => new SelectListItem
+                ModelesDisponibles = _modeleService.RecupererModelesSelonMarqueId(marque.Id).Select(m => new SelectListItem
                     {
                         Value = m.Id.ToString(),
                         Text = m.NomModele
                     }).ToList(),
+
                 ModeleFinitionId = modeleFinition.Id,
-                FinitionsDisponibles = _finitionService
-                    .RecupererToutesLesFinitions()
-                    .Select(f => new SelectListItem
-                    {
-                        Value = f.Id.ToString(),
-                        Text = f.NomFinition
-                    }).ToList(),
+                FinitionsDisponibles = _modeleFinitionService .RecupererModeleFinitionsSelonModeleId(modele.Id).Select(mf => new SelectListItem
+                {
+                    Value = mf.Id.ToString(),
+                    Text = mf.Finition.NomFinition
+                }).ToList(),
 
                 DateAchat = voiture.DateAchat,
                 PrixAchat = voiture.PrixAchat,
@@ -204,6 +204,7 @@ namespace WebCarApplication.Controllers
             return View(updateVoitureViewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Update(UpdateVoitureViewModel updateVoitureViewModel)
         {
@@ -216,6 +217,23 @@ namespace WebCarApplication.Controllers
                         Value = m.Id.ToString(),
                         Text = m.NomMarque
                     }).ToList();
+
+                updateVoitureViewModel.ModelesDisponibles = _modeleService
+                    .RecupererModelesSelonMarqueId(updateVoitureViewModel.MarqueId)
+                    .Select(m => new SelectListItem
+                    {
+                        Value = m.Id.ToString(),
+                        Text = m.NomModele
+                    }).ToList();
+
+                updateVoitureViewModel.FinitionsDisponibles = _modeleFinitionService
+                    .RecupererModeleFinitionsSelonModeleId(updateVoitureViewModel.ModeleId)
+                    .Select(mf => new SelectListItem
+                    {
+                        Value = mf.Id.ToString(),
+                        Text = mf.Finition.NomFinition
+                    }).ToList();
+
                 return View(updateVoitureViewModel);
             }
             var voiture = _voitureService.RechercherVoitureParId(updateVoitureViewModel.Id);
@@ -227,6 +245,7 @@ namespace WebCarApplication.Controllers
             voiture.Annee = updateVoitureViewModel.Annee;
             voiture.DateAchat = updateVoitureViewModel.DateAchat;
             voiture.PrixAchat = updateVoitureViewModel.PrixAchat;
+            voiture.Disponible = updateVoitureViewModel.Disponible;
             voiture.DateDisponibilite = updateVoitureViewModel.DateDisponibilite;
             voiture.ModeleFinitionId = updateVoitureViewModel.ModeleFinitionId;
             if (updateVoitureViewModel.Photo != null)
@@ -235,7 +254,7 @@ namespace WebCarApplication.Controllers
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "voitures", fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    updateVoitureViewModel.Photo.CopyToAsync(stream);
+                    updateVoitureViewModel.Photo.CopyTo(stream);
                 }
                 voiture.Photos.Clear();
                 voiture.Photos.Add(new Photo
@@ -247,6 +266,7 @@ namespace WebCarApplication.Controllers
             return RedirectToAction("Update", new { id = voiture.Id });
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Delete(int id)
         {

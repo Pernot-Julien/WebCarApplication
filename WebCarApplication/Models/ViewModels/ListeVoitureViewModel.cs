@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
 
-        public int? CodeVin { get; set; }
+        public bool Disponible { get; set; }
 
         public decimal Prix { get; set; } 
 

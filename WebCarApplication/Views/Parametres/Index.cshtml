@@ -1,0 +1,24 @@
+﻿@model WebCarApplication.Models.ViewModels.ParametresApplicationViewModel
+
+@{
+    ViewData["Title"] = "Paramètres";
+}
+
+<h1>Paramètres de l'application</h1>
+
+@if (TempData["Message"] != null)
+{
+    <p>@TempData["Message"]</p>
+}
+
+<form asp-action="Index" method="post">
+
+    <div>
+        <label asp-for="MargeBenefice">Marge bénéficiaire (€)</label>
+        <input asp-for="MargeBenefice" type="number" step="0.01" />
+        <span asp-validation-for="MargeBenefice"></span>
+    </div>
+
+    <button type="submit">Enregistrer</button>
+
+</form>

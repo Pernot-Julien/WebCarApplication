@@ -25,7 +25,11 @@
                 </a>
 
                 @if (User.Identity?.IsAuthenticated == true)
-                {
+                {    
+                        <a asp-controller="Parametres"
+                           asp-action="Index">
+                            Paramètres marge 
+                        </a>
                     <a asp-controller="Voitures" asp-action="create">
                         Ajouter une voiture
                     </a>

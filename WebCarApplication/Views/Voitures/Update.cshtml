@@ -20,6 +20,17 @@
 
             <input asp-for="Id" type="hidden" />
 
+            <div class="disponibilite">
+                <p>Disponibilité : </p>
+                <div class="disponibilite">
+                    <input type="radio" asp-for="Disponible" value="true" id="disponibleOui" />
+                    <label for="disponibleOui">Oui</label>
+
+                    <input type="radio" asp-for="Disponible" value="false" id="disponibleNon" />
+                    <label for="disponibleNon">Non</label>
+                </div>
+            </div>
+
             <div class="vehicle-form-group">
                 <label asp-for="CodeVin"></label>
                 <input asp-for="CodeVin" placeholder="Ex : VF1... (Optionnel)" />

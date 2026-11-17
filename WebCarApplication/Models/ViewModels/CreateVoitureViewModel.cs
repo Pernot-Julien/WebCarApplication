@@ -5,8 +5,9 @@ namespace WebCarApplication.Models.ViewModels
 {
     public class CreateVoitureViewModel
     {
-        [Display(Name = "Code VIN")]
-        public int? CodeVin { get; set; }
+        [StringLength(17, MinimumLength = 17, ErrorMessage = "Le VIN doit contenir exactement 17 caractères.")]
+        [RegularExpression(@"^[A-HJ-NPR-Z0-9]{17}$", ErrorMessage = "Le VIN contient des caractères non autorisés.")]
+        public string? CodeVin { get; set; }
 
         [Required(ErrorMessage = "L'année est obligatoire")]
         [Range(1990, 2100, ErrorMessage = "Année invalide")]
@@ -27,6 +28,9 @@ namespace WebCarApplication.Models.ViewModels
 
         [Display(Name = "Coût total des réparations")]
         public decimal CoutReparation { get; set; }
+
+        [Display(Name = "Disponible à la vente")]
+        public bool Disponible { get; set; } = true;
 
         [DataType(DataType.Date)]
         [Display(Name = "Date de disponibilité à la vente")]

@@ -32,6 +32,8 @@ builder.Services.AddScoped<IReparationRepository, ReparationRepository>();
 builder.Services.AddScoped<IReparationService, ReparationService>();
 builder.Services.AddScoped<IModeleFinitionService, ModeleFinitionService>();
 builder.Services.AddScoped<IModeleFinitionRepository, ModeleFinitionRepository>();
+builder.Services.AddScoped<IParametresApplicationRepository, ParametresApplicationRepository>();
+builder.Services.AddScoped<IParametresApplicationService, ParametresApplicationService>();
 
 
 var app = builder.Build();
