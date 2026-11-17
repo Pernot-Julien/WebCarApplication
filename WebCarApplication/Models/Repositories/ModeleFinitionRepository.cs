@@ -20,11 +20,6 @@ namespace WebCarApplication.Models.Repositories
                 .FirstOrDefault(mf => mf.Id == id);
         }
 
-        public IEnumerable<ModeleFinition> RecupererToutesLesModeleFinitions()
-        {
-            return _context.ModeleFinitions.ToList();
-        }
-
         public IEnumerable<ModeleFinition> RecupererModeleFinitionsSelonModeleId(int modeleId)
         {
             return _context.ModeleFinitions

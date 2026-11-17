@@ -63,5 +63,58 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+    const marqueSelect = document.getElementById("MarqueId");
+    const modeleSelect = document.getElementById("ModeleId");
+    const finitionSelect = document.getElementById("ModeleFinitionId");
+
+    // On vérifie que les trois listes existent sur la page
+    if (marqueSelect && modeleSelect && finitionSelect) {
+
+        const urlModeles = '@Url.Action("RecupererModelesParMarque", "Voitures")';
+        const urlFinitions = '@Url.Action("RecupererFinitionsParModele", "Voitures")';
+
+        // Changement de marque
+        marqueSelect.addEventListener("change", async function () {
+
+            const marqueId = this.value;
+
+            modeleSelect.innerHTML = '<option value="">-- Modèle --</option>';
+            finitionSelect.innerHTML = '<option value="">-- Finition --</option>';
+
+            if (!marqueId) return;
+
+            const reponse = await fetch(`${urlModeles}?marqueId=${marqueId}`);
+
+            if (!reponse.ok) return;
+
+            const modeles = await reponse.json();
+
+            modeles.forEach(modele => {
+                modeleSelect.add(new Option(modele.nom, modele.id));
+            });
+        });
+
+        // Changement de modèle
+        modeleSelect.addEventListener("change", async function () {
+
+            const modeleId = this.value;
+
+            finitionSelect.innerHTML = '<option value="">-- Finition --</option>';
+
+            if (!modeleId) return;
+
+            const reponse = await fetch(`${urlFinitions}?modeleId=${modeleId}`);
+
+            if (!reponse.ok) return;
+
+            const finitions = await reponse.json();
+
+            finitions.forEach(finition => {
+                finitionSelect.add(new Option(finition.nom, finition.id));
+            });
+        });
+    }
+</script>
 </body>
 </html>

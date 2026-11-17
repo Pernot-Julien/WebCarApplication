@@ -22,9 +22,5 @@ namespace WebCarApplication.Models.Repositories
 
             return reparation;
         }
-        public Reparation? RecupererReparationSelonIdVoiture(int voitureId)
-        {
-            return _context.Reparations.FirstOrDefault(r => r.VoitureId == voitureId);
-        }
     }
 }

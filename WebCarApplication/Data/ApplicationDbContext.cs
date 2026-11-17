@@ -29,6 +29,13 @@ namespace WebCarApplication.Data
                 .Property(v => v.PrixAchat)
                 .HasPrecision(18, 2);
 
+            // Relation Voiture - Photo
+            modelBuilder.Entity<Photo>()
+                .HasOne(p => p.Voiture)
+                .WithMany(v => v.Photos)
+                .HasForeignKey(p => p.VoitureId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Reparation>()
                 .Property(r => r.CoutReparation)
                 .HasPrecision(18, 2);

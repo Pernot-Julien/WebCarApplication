@@ -6,7 +6,5 @@ namespace WebCarApplication.Models.Services.Interfaces
     {
         public Reparation EnregistrerReparation(Reparation reparation);
 
-        public Reparation? RecupererReparationSelonIdVoiture(int voitureId);
-
     }
 }

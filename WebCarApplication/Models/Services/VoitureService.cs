@@ -19,7 +19,7 @@ namespace WebCarApplication.Models.Services
             {
                 coutTotalReparations += reparation.CoutReparation;
             }
-            const decimal margeBenefice = 500;
+            const decimal margeBenefice = 500; // Revoir pour supprimer la marge en dure
             decimal prixVente = voiture.PrixAchat + coutTotalReparations + margeBenefice;
             return prixVente;
         }

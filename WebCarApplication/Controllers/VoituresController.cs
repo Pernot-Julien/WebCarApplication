@@ -77,6 +77,8 @@ namespace WebCarApplication.Controllers
         }
 
 
+
+
         [HttpPost]
         public IActionResult Create(CreateVoitureViewModel createVoitureViewModel)
         {
@@ -101,9 +103,36 @@ namespace WebCarApplication.Controllers
                 PrixAchat = createVoitureViewModel.PrixAchat,
                 DateDisponibilite = createVoitureViewModel.DateDisponibilite,
                 ModeleFinitionId = createVoitureViewModel.ModeleFinitionId,
-                Photos = new List<Photo>(),
-
+                Photos = new List<Photo>()
             };
+
+            if (createVoitureViewModel.Photo != null &&
+                createVoitureViewModel.Photo.Length > 0)
+            {
+                var dossier = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "images",
+                    "voitures"
+                );
+
+                Directory.CreateDirectory(dossier);
+
+                var extension = Path.GetExtension(createVoitureViewModel.Photo.FileName);
+                var fileName = Guid.NewGuid().ToString() + extension;
+                var filePath = Path.Combine(dossier, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    createVoitureViewModel.Photo.CopyTo(stream);
+                }
+
+                voiture.Photos.Add(new Photo
+                {
+                    Url = fileName
+                });
+            }
+
             _voitureService.AjouterVoiture(voiture);
 
             var reparation = new Reparation
@@ -115,24 +144,10 @@ namespace WebCarApplication.Controllers
 
             _reparationService.EnregistrerReparation(reparation);
 
-            if (createVoitureViewModel.Photo != null)
-            {
-                var fileName = createVoitureViewModel.Photo.FileName;
-
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "voitures", fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    createVoitureViewModel.Photo.CopyToAsync(stream);
-                }
-
-                voiture.Photos.Add(new Photo
-                {
-                    Url = fileName
-                });
-            }
             return RedirectToAction("Create");
         }
+
+
 
         [HttpGet]
         public IActionResult Update(int id)

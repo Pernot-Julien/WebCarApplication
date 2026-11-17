@@ -14,8 +14,9 @@
         {
             <div class="carte-voiture">
 
-                <img src="~/images/voitures/@voiture.PhotoUrl"
-                     alt="Photo voiture" />
+                <img src="@Url.Content("~/images/voitures/" + voiture.PhotoUrl)"
+                     alt="Photo de @voiture.Marque @voiture.Modele"
+                     class="img-fluid" />
 
                 <div class="infos-voiture">
                     @if (User.Identity?.IsAuthenticated == true)
@@ -26,10 +27,10 @@
                             Modifier la voiture
                         </a>
                         <form asp-controller="Voitures"
-                          asp-action="Delete"
-                          asp-route-id="@voiture.Id"
-                          method="post"
-                          onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette voiture ?');">
+                              asp-action="Delete"
+                              asp-route-id="@voiture.Id"
+                              method="post"
+                              onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette voiture ?');">
 
                         <button type="submit">
                             Supprimer la voiture
@@ -38,6 +39,7 @@
 </form>
 
                     }
+
                     <h3>@voiture.Prix</h3>
 
                     <p>Année : @voiture.Annee</p>

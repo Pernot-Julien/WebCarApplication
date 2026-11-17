@@ -16,11 +16,6 @@ namespace WebCarApplication.Models.Services
             return _modeleFinitionRepository.RecupererModeleFinitionSelonId(id);
         }
 
-        public IEnumerable<ModeleFinition> RecupererToutesLesModeleFinitions()
-        {
-            return _modeleFinitionRepository.RecupererToutesLesModeleFinitions();
-        }
-
         public IEnumerable<ModeleFinition> RecupererModeleFinitionsSelonModeleId(int modeleId)
         {
             return _modeleFinitionRepository.RecupererModeleFinitionsSelonModeleId(modeleId);

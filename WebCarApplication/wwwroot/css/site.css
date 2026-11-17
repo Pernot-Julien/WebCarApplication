@@ -110,3 +110,49 @@ h1 {
 img {
     border-radius:10px;
 }
+
+
+/* Formulaire */
+.vehicle-form-page {
+    padding: 30px 15px;
+}
+
+.vehicle-form-card {
+    max-width: 450px;
+    margin: 20px auto;
+    padding: 25px;
+    box-shadow: 0 2px 12px #00000010;
+}
+
+    /* Tous les champs */
+    .vehicle-form-card input:not([type="file"]),
+    .vehicle-form-card select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+        border: 1px solid #9b8a80;
+    }
+
+    /* Photos */
+    .vehicle-form-card img {
+        max-width: 100%;
+        max-height: 200px;
+        object-fit: contain;
+    }
+
+/* Boutons et titre */
+.vehicle-form-page h2,
+.vehicle-form-actions {
+    text-align: center;
+}
+
+.vehicle-submit-button {
+    background: #e3ad59;
+    color: #49382f;
+    border: 0;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+

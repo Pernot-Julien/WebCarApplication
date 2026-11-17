@@ -17,9 +17,5 @@ namespace WebCarApplication.Models.Services
         {
             return _reparationRepository.EnregistrerReparation(reparation);
         }
-        public Reparation? RecupererReparationSelonIdVoiture(int voitureId)
-        {
-            return _reparationRepository.RecupererReparationSelonIdVoiture(voitureId);
-        }
     }
 }
