@@ -25,37 +25,38 @@
                      class="img-fluid" />
 
                 <div class="infos-voiture">
+
                     @if (User.Identity?.IsAuthenticated == true)
                     {
-                        <a asp-controller="Voitures"
-                           asp-action="Update"
-                           asp-route-id="@voiture.Id">
-                            Modifier la voiture
-                        </a>
-                        <form asp-controller="Voitures"
-                              asp-action="Delete"
-                              asp-route-id="@voiture.Id"
-                              method="post"
-                              onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette voiture ?');">
+                        <div class="actions-voiture">
+                            <p>Vous avez publié cette annonce, vous pouvez le :</p>
 
-                            <button type="submit">
-                                Supprimer la voiture
-                            </button>
-                       </form>
-                       <p class="@(voiture.Disponible ? "" : "indisponible")">
-                          @(voiture.Disponible ? "Disponible" : "Indisponible")
-                       </p>
+                            <a asp-controller="Voitures"
+                               asp-action="Update"
+                               asp-route-id="@voiture.Id">
+                                Modifier
+                            </a>
 
+                            <form asp-controller="Voitures"
+                                  asp-action="Delete"
+                                  asp-route-id="@voiture.Id"
+                                  method="post"
+                                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette voiture ?');">
+
+                                <button type="submit">Supprimer</button>
+                            </form>
+                        </div>
+
+                        <p class="statut-voiture @(voiture.Disponible ? "" : "indisponible")">
+                            @(voiture.Disponible ? "Disponible" : "Indisponible")
+                        </p>
                     }
 
-                    <h3>@voiture.Prix €</h3>
+                    <h3>@voiture.Prix.ToString("N2") €</h3>
 
                     <p>Année : @voiture.Annee</p>
-
                     <p>Marque : @voiture.Marque</p>
-
                     <p>Modèle : @voiture.Modele</p>
-
                     <p>Finition : @voiture.Finition</p>
 
                 </div>
