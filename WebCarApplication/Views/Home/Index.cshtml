@@ -20,9 +20,15 @@
         {
             <div class="carte-voiture">
 
-                <img src="@Url.Content("~/images/voitures/" + voiture.PhotoUrl)"
-                     alt="Photo de @voiture.Marque @voiture.Modele"
-                     class="img-fluid" />
+                <a asp-controller="Home"
+                   asp-action="Details"
+                   asp-route-id="@voiture.Id">
+
+                    <img src="@Url.Content("~/images/voitures/" + voiture.PhotoUrl)"
+                         alt="Photo de @voiture.Marque @voiture.Modele"
+                         class="img-fluid" />
+
+                </a>
 
                 <div class="infos-voiture">
 

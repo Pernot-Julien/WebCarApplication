@@ -147,7 +147,19 @@ namespace WebCarApplication.Controllers
 
             _reparationService.EnregistrerReparation(reparation);
 
-            TempData["Message"] = "La voiture a bien été ajoutée.";
+            var modeleFinition = _modeleFinitionService
+        .RecupererModeleFinitionSelonId(voiture.ModeleFinitionId);
+
+            var modele = _modeleService
+                .RecupererModeleSelonId(modeleFinition.ModeleId);
+
+            var marque = _marqueService
+                .RecupererMarqueSelonId(modele.MarqueId);
+
+            var finition = _finitionService
+                .RecupererFinitionSelonId(modeleFinition.FinitionId);
+
+            TempData["Message"] = $"La voiture {marque.NomMarque} {modele.NomModele} {finition.NomFinition} a bien été ajoutée.";
 
             return RedirectToAction("ConfirmationCreate");
         }
@@ -271,7 +283,19 @@ namespace WebCarApplication.Controllers
                 });
             }
             _voitureService.ModifierVoiture(voiture);
-            TempData["Message"] = "La voiture a bien été modifiée.";
+            var modeleFinition = _modeleFinitionService
+             .RecupererModeleFinitionSelonId(voiture.ModeleFinitionId);
+
+            var modele = _modeleService
+                .RecupererModeleSelonId(modeleFinition.ModeleId);
+
+            var marque = _marqueService
+                .RecupererMarqueSelonId(modele.MarqueId);
+
+            var finition = _finitionService
+                .RecupererFinitionSelonId(modeleFinition.FinitionId);
+
+            TempData["Message"] = $"La voiture {marque.NomMarque} {modele.NomModele} {finition.NomFinition} a bien été modifiée.";
 
             return RedirectToAction("ConfirmationUpdate"); ;
         }

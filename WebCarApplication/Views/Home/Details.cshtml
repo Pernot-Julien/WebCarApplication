@@ -1,0 +1,35 @@
+﻿
+@model WebCarApplication.Models.ViewModels.ListeVoitureViewModel
+
+@{
+    ViewData["Title"] = "Détail du véhicule";
+}
+
+<div class="text-center">
+    <h1>@Model.Marque @Model.Modele</h1>
+
+    <div class="carte-voiture">
+        <img src="@Url.Content("~/images/voitures/" + Model.PhotoUrl)"
+             alt="Photo de @Model.Marque @Model.Modele" />
+
+        <div class="infos-voiture">
+
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <p class="statut-voiture @(Model.Disponible ? "" : "indisponible")">
+                    @(Model.Disponible ? "Disponible" : "Indisponible")
+                </p>
+            }
+
+            <h3>@Model.Prix.ToString("N2") €</h3>
+            <p>Année : @Model.Annee</p>
+            <p>Marque : @Model.Marque</p>
+            <p>Modèle : @Model.Modele</p>
+            <p>Finition : @Model.Finition</p>
+
+            <a asp-controller="Home" asp-action="Index">
+                Retour aux annonces
+            </a>
+        </div>
+    </div>
+</div>

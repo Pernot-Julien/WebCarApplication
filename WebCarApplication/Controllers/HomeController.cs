@@ -69,6 +69,50 @@ namespace WebCarApplication.Controllers
             return View(voitures);
         }
 
+        public IActionResult Details(int id)
+        {
+            var voiture = _voitureService.RechercherVoitureParId(id);
+
+            if (voiture == null)
+            {
+                return NotFound();
+            }
+
+            // Un visiteur ne peut pas consulter une voiture indisponible
+            if (User.Identity?.IsAuthenticated != true && !voiture.Disponible)
+            {
+                return NotFound();
+            }
+
+            var modeleFinition = _modeleFinitionService
+                .RecupererModeleFinitionSelonId(voiture.ModeleFinitionId);
+
+            var finition = _finitionService
+                .RecupererFinitionSelonId(modeleFinition.FinitionId);
+
+            var modele = _modeleService
+                .RecupererModeleSelonId(modeleFinition.ModeleId);
+
+            var marque = _marqueService
+                .RecupererMarqueSelonId(modele.MarqueId);
+
+            var photos = _photoService
+                .RecupererPhotosSelonIdVoiture(voiture.Id);
+
+            var viewModel = new ListeVoitureViewModel
+            {
+                Id = voiture.Id,
+                Prix = _voitureService.CalculerPrixVente(voiture, voiture.Reparations),
+                Annee = voiture.Annee,
+                Marque = marque.NomMarque,
+                Modele = modele.NomModele,
+                Finition = finition.NomFinition,
+                Disponible = voiture.Disponible,
+                PhotoUrl = photos.FirstOrDefault()?.Url
+            };
+
+            return View(viewModel);
+        }
         public IActionResult Privacy()
         {
             return View();
