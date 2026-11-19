@@ -56,6 +56,7 @@ namespace WebCarApplication.Controllers
                 voitures.Add(new ListeVoitureViewModel
                 {
                     Id = voiture.Id,
+                    Vendu = voiture.Vendu,
                     Prix = _voitureService.CalculerPrixVente(voiture, voiture.Reparations),
                     Annee = voiture.Annee,
                     Marque = marque.NomMarque,

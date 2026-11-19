@@ -31,6 +31,17 @@
                 </div>
             </div>
 
+            <div class="disponibilite">
+                <p>Vendu : </p>
+                <div class="disponibilite">
+                    <input type="radio" asp-for="Vendu" value="true" id="venduOui" />
+                    <label for="venduOui">Oui</label>
+
+                    <input type="radio" asp-for="Vendu" value="false" id="venduNon" />
+                    <label for="venduNon">Non</label>
+                </div>
+            </div>
+
             <div class="vehicle-form-group">
                 <label asp-for="CodeVin"></label>
                 <input asp-for="CodeVin" placeholder="Ex : VF1... (Optionnel)" />

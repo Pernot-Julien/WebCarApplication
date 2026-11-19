@@ -10,7 +10,7 @@ namespace WebCarApplication.Models.ViewModels
         public string? CodeVin { get; set; }
 
         [Required(ErrorMessage = "L'année est obligatoire")]
-        [Range(1990, 2100, ErrorMessage = "Année invalide")]
+        [Range(1990, 2100, ErrorMessage = "Année invalide doit être supérieure ou égale à 1990")]
         public int Annee { get; set; }
 
         [Required(ErrorMessage = "La date d'achat est obligatoire")]

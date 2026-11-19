@@ -138,14 +138,17 @@ namespace WebCarApplication.Controllers
 
             _voitureService.AjouterVoiture(voiture);
 
-            var reparation = new Reparation
+            if (!string.IsNullOrWhiteSpace(createVoitureViewModel.DescriptionReparation) || createVoitureViewModel.CoutReparation > 0)
             {
-                DescriptionReparation = createVoitureViewModel.DescriptionReparation,
-                CoutReparation = createVoitureViewModel.CoutReparation,
-                VoitureId = voiture.Id
-            };
+                var reparation = new Reparation
+                {
+                    DescriptionReparation = createVoitureViewModel.DescriptionReparation!,
+                    CoutReparation = createVoitureViewModel.CoutReparation,
+                    VoitureId = voiture.Id
+                };
 
-            _reparationService.EnregistrerReparation(reparation);
+                _reparationService.EnregistrerReparation(reparation);
+            }
 
             var modeleFinition = _modeleFinitionService
         .RecupererModeleFinitionSelonId(voiture.ModeleFinitionId);
@@ -191,8 +194,10 @@ namespace WebCarApplication.Controllers
             {
                 Id = voiture.Id,
                 CodeVin = voiture.CodeVin,
+
                 Annee = voiture.Annee,
                 Disponible = voiture.Disponible,
+                Vendu = voiture.Vendu,
 
                 MarqueId = marque.Id,
                 MarquesDisponibles = _marqueService.RecupererToutesLesMarques().Select(m => new SelectListItem
@@ -261,6 +266,17 @@ namespace WebCarApplication.Controllers
             {
                 return NotFound();
             }
+            voiture.Vendu = updateVoitureViewModel.Vendu;
+
+            if (voiture.Vendu)
+            {
+                voiture.DateVente = DateTime.Today;
+                voiture.Disponible = false;
+            }
+            else
+            {
+                voiture.DateVente = null;
+            }
             voiture.CodeVin = updateVoitureViewModel.CodeVin;
             voiture.Annee = updateVoitureViewModel.Annee;
             voiture.DateAchat = updateVoitureViewModel.DateAchat;
@@ -268,6 +284,15 @@ namespace WebCarApplication.Controllers
             voiture.Disponible = updateVoitureViewModel.Disponible;
             voiture.DateDisponibilite = updateVoitureViewModel.DateDisponibilite;
             voiture.ModeleFinitionId = updateVoitureViewModel.ModeleFinitionId;
+            if (voiture.Vendu)
+            {
+                voiture.DateVente = DateTime.Today;
+                voiture.Disponible = false;
+            }
+            else
+            {
+                voiture.DateVente = null;
+            }
             if (updateVoitureViewModel.Photo != null)
             {
                 var fileName = updateVoitureViewModel.Photo.FileName;

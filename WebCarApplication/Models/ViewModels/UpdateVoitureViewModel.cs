@@ -6,6 +6,9 @@ namespace WebCarApplication.Models.ViewModels
     public class UpdateVoitureViewModel
     {
         public int Id { get; set; }
+
+        public bool Vendu { get; set; }
+
         [StringLength(17, MinimumLength = 17, ErrorMessage = "Le VIN doit contenir exactement 17 caractères.")]
         [RegularExpression(@"^[A-HJ-NPR-Z0-9]{17}$", ErrorMessage = "Le VIN contient des caractères non autorisés.")]
         public string? CodeVin { get; set; }

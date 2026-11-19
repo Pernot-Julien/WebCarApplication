@@ -53,8 +53,8 @@
                             </form>
                         </div>
 
-                        <p class="statut-voiture @(voiture.Disponible ? "" : "indisponible")">
-                            @(voiture.Disponible ? "Disponible" : "Indisponible")
+                        <p class="statut-voiture @(voiture.Vendu ? "vendu" : !voiture.Disponible ? "indisponible" : "")">
+                            @(voiture.Vendu ? "Vendu" : voiture.Disponible ? "Disponible" : "Indisponible")
                         </p>
                     }
 

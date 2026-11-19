@@ -11,6 +11,7 @@
         public DateTime? DateVente { get; set; }
         public string? Description { get; set; }
         public bool Disponible { get; set; } = true;
+        public bool Vendu { get; set; } = false;
 
         public int ModeleFinitionId { get; set; }
         public ModeleFinition ModeleFinition { get; set; } = null!;

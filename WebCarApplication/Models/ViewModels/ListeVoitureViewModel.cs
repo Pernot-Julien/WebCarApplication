@@ -6,6 +6,8 @@
 
         public bool Disponible { get; set; }
 
+        public bool Vendu { get; set; }
+
         public decimal Prix { get; set; } 
 
         public string PhotoUrl { get; set; } = string.Empty;
