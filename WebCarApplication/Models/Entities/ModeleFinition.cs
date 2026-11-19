@@ -7,8 +7,6 @@ namespace WebCarApplication.Models.Entities
     {
         [Key]
         public int Id { get; set; }
-
-     
         public int ModeleId { get; set; }
         public Modele Modele { get; set; } = null!;
 
