@@ -19,7 +19,14 @@ public class VoitureRepository : IVoitureRepository
     }
     public Voiture? RechercherVoitureParId(int id)
     {
-        return _context.Voitures.FirstOrDefault(v => v.Id == id);
+        return _context.Voitures
+            .Include(v => v.Photos)
+            .Include(v => v.ModeleFinition)
+                .ThenInclude(mf => mf.Modele)
+                    .ThenInclude(m => m.Marque)
+            .Include(v => v.ModeleFinition)
+                .ThenInclude(mf => mf.Finition)
+            .FirstOrDefault(v => v.Id == id);
     }
     public void AjouterVoiture(Voiture voiture)
     {

@@ -1,11 +1,18 @@
-﻿@{
-    ViewData["Title"] = "ConfirmationUpdate";
+﻿
+@{
+    ViewData["Title"] = "Confirmation de modification";
 }
 
-<div class="text-center">
-    <h2>@TempData["Message"]</h2>
+<div class="confirmation-page">
 
-    <a asp-controller="Home" asp-action="Index">
+    <h1>@TempData["NomVoiture"]</h1>
+
+    <p>@TempData["ActionConfirmation"]</p>
+
+    <a asp-controller="Home"
+       asp-action="Index"
+       class="btn-retour">
         Retour à l'accueil
     </a>
+
 </div>

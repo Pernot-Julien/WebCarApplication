@@ -132,7 +132,7 @@ namespace WebCarApplication.Controllers
 
                 voiture.Photos.Add(new Photo
                 {
-                    Url = fileName
+                    Url = "/images/voitures/" + fileName
                 });
             }
 
@@ -162,7 +162,8 @@ namespace WebCarApplication.Controllers
             var finition = _finitionService
                 .RecupererFinitionSelonId(modeleFinition.FinitionId);
 
-            TempData["Message"] = $"La voiture {marque.NomMarque} {modele.NomModele} {finition.NomFinition} a bien été ajoutée.";
+            TempData["NomVoiture"] = $"{voiture.Annee} {marque.NomMarque} {modele.NomModele} {finition.NomFinition}";
+            TempData["ActionConfirmation"] = "a bien été ajoutée";
 
             return RedirectToAction("ConfirmationCreate");
         }
@@ -229,6 +230,8 @@ namespace WebCarApplication.Controllers
             return View(updateVoitureViewModel);
         }
 
+
+
         [Authorize]
         [HttpPost]
         public IActionResult Update(UpdateVoitureViewModel updateVoitureViewModel)
@@ -261,12 +264,22 @@ namespace WebCarApplication.Controllers
 
                 return View(updateVoitureViewModel);
             }
+
             var voiture = _voitureService.RechercherVoitureParId(updateVoitureViewModel.Id);
+
             if (voiture == null)
             {
                 return NotFound();
             }
+
             voiture.Vendu = updateVoitureViewModel.Vendu;
+
+            voiture.CodeVin = updateVoitureViewModel.CodeVin;
+            voiture.Annee = updateVoitureViewModel.Annee;
+            voiture.DateAchat = updateVoitureViewModel.DateAchat;
+            voiture.PrixAchat = updateVoitureViewModel.PrixAchat;
+            voiture.DateDisponibilite = updateVoitureViewModel.DateDisponibilite;
+            voiture.ModeleFinitionId = updateVoitureViewModel.ModeleFinitionId;
 
             if (voiture.Vendu)
             {
@@ -276,40 +289,43 @@ namespace WebCarApplication.Controllers
             else
             {
                 voiture.DateVente = null;
+                voiture.Disponible = updateVoitureViewModel.Disponible;
             }
-            voiture.CodeVin = updateVoitureViewModel.CodeVin;
-            voiture.Annee = updateVoitureViewModel.Annee;
-            voiture.DateAchat = updateVoitureViewModel.DateAchat;
-            voiture.PrixAchat = updateVoitureViewModel.PrixAchat;
-            voiture.Disponible = updateVoitureViewModel.Disponible;
-            voiture.DateDisponibilite = updateVoitureViewModel.DateDisponibilite;
-            voiture.ModeleFinitionId = updateVoitureViewModel.ModeleFinitionId;
-            if (voiture.Vendu)
+
+            // Remplacement de la photo uniquement si une nouvelle est sélectionnée
+            if (updateVoitureViewModel.Photo != null &&
+                updateVoitureViewModel.Photo.Length > 0)
             {
-                voiture.DateVente = DateTime.Today;
-                voiture.Disponible = false;
-            }
-            else
-            {
-                voiture.DateVente = null;
-            }
-            if (updateVoitureViewModel.Photo != null)
-            {
-                var fileName = updateVoitureViewModel.Photo.FileName;
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "voitures", fileName);
+                var dossier = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "images",
+                    "voitures"
+                );
+
+                Directory.CreateDirectory(dossier);
+
+                var extension = Path.GetExtension(updateVoitureViewModel.Photo.FileName);
+                var fileName = Guid.NewGuid().ToString() + extension;
+                var filePath = Path.Combine(dossier, fileName);
+
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     updateVoitureViewModel.Photo.CopyTo(stream);
                 }
+
                 voiture.Photos.Clear();
+
                 voiture.Photos.Add(new Photo
                 {
-                    Url = fileName
+                    Url = "/images/voitures/" + fileName
                 });
             }
+
             _voitureService.ModifierVoiture(voiture);
+
             var modeleFinition = _modeleFinitionService
-             .RecupererModeleFinitionSelonId(voiture.ModeleFinitionId);
+                .RecupererModeleFinitionSelonId(voiture.ModeleFinitionId);
 
             var modele = _modeleService
                 .RecupererModeleSelonId(modeleFinition.ModeleId);
@@ -320,26 +336,40 @@ namespace WebCarApplication.Controllers
             var finition = _finitionService
                 .RecupererFinitionSelonId(modeleFinition.FinitionId);
 
-            TempData["Message"] = $"La voiture {marque.NomMarque} {modele.NomModele} {finition.NomFinition} a bien été modifiée.";
+            TempData["NomVoiture"] = $"{voiture.Annee} {marque.NomMarque} {modele.NomModele} {finition.NomFinition}";
+            TempData["ActionConfirmation"] = "a bien été modifiée";
 
-            return RedirectToAction("ConfirmationUpdate"); ;
+            return RedirectToAction("ConfirmationUpdate");
         }
+
 
         public IActionResult ConfirmationUpdate()
         {
             return View();
-        }   
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult ConfirmationDelete()
+        {
+            return View();
+        }
 
         [Authorize]
         [HttpPost]
         public IActionResult Delete(int id)
         {
             var voiture = _voitureService.SupprimerVoiture(id);
+
             if (voiture == null)
             {
                 return NotFound();
             }
-            return RedirectToAction("Index", "Home");
+
+            TempData["NomVoiture"] = $"{voiture.Annee} {voiture.ModeleFinition.Modele.Marque.NomMarque} {voiture.ModeleFinition.Modele.NomModele} {voiture.ModeleFinition.Finition.NomFinition}";
+            TempData["ActionConfirmation"] = "a bien été supprimée";
+
+            return RedirectToAction("ConfirmationDelete");
         }
     }
 }

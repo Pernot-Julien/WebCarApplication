@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Confirmation de suppression";
+}
+
+<div class="confirmation-page">
+    <h1>@TempData["NomVoiture"]</h1>
+
+    <p>@TempData["ActionConfirmation"]</p>
+
+    <a asp-controller="Home"
+       asp-action="Index"
+       class="btn-retour">
+        Retour à l'accueil
+    </a>
+</div>

@@ -217,3 +217,43 @@ img {
     color: #555 !important;
     font-weight: bold;
 }
+
+
+/* Pages de confirmation */
+
+.confirmation-page {
+    min-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+    .confirmation-page h1 {
+        margin-bottom: 8px;
+    }
+
+    .confirmation-page p {
+        margin-bottom: 55px;
+        font-size: 14px;
+        color: #2C1810;
+    }
+
+/* Bouton retour accueil */
+
+.btn-retour {
+    display: inline-block;
+    background-color: #e3ad59;
+    color: #49382f;
+    padding: 12px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+    .btn-retour:hover {
+        background-color: #d19a48;
+        color: #49382f;
+    }
+
