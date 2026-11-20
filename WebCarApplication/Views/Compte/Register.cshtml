@@ -1,40 +1,51 @@
-﻿@model WebCarApplication.Models.ViewModels.RegisterViewModel
+﻿
+@model WebCarApplication.Models.ViewModels.RegisterViewModel
 
 @{
     ViewData["Title"] = "Inscription";
 }
 
-<h1>Express Voitures</h1>
+<div class="vehicle-form-page">
+    <div class="vehicle-form-card">
 
-<form asp-action="Register" method="post">
+        <h1>Express Voitures</h1>
 
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="Register" method="post">
 
-    <div>
-        <label asp-for="Email">Adresse email</label>
-        <br />
-        <input asp-for="Email" />
-        <span asp-validation-for="Email" class="text-danger"></span>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div>
+                <label asp-for="Email">Adresse email</label>
+                <br />
+                <input asp-for="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <br />
+
+            <div>
+                <label asp-for="Password">Mot de passe</label>
+                <br />
+                <input asp-for="Password" type="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <br /><br />
+
+            <div class="vehicle-form-actions">
+                <button type="submit" class="vehicle-submit-button">
+                    S'inscrire
+                </button>
+
+                ou
+
+                <a asp-action="Login">Se connecter</a>
+            </div>
+
+        </form>
+
     </div>
-
-    <br />
-
-    <div>
-        <label asp-for="Password">Mot de passe</label>
-        <br />
-        <input asp-for="Password" type="password" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-
-    <br /><br />
-
-    <button type="submit">S'inscrire</button>
-
-    ou
-
-    <a asp-action="Login">Se connecter</a>
-
-</form>
+</div>
 
 @section Scripts
 {
