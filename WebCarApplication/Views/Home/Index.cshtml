@@ -24,7 +24,7 @@
                    asp-action="Details"
                    asp-route-id="@voiture.Id">
 
-                    <img src="@Url.Content("~/images/voitures/" + voiture.PhotoUrl)"
+                    <img src="@Url.Content(voiture.PhotoUrl)"
                          alt="Photo de @voiture.Marque @voiture.Modele"
                          class="img-fluid" />
 
