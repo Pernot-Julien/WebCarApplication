@@ -46,6 +46,22 @@ Le projet suit une organisation séparant les différentes responsabilités :
 - `Views` : interfaces Razor.
 - `wwwroot` : fichiers statiques (CSS, JavaScript et images).
 
+## Dépôt Git
+
+Le code source du projet est disponible sur le dépôt Git suivant :
+
+**Lien du dépôt : https://github.com/Pernot-Julien/WebCarApplication
+
+**Branche de développement : `dev`
+
+Pour récupérer le projet depuis cette branche :
+
+```bash
+git clone -b dev https://github.com/Pernot-Julien/WebCarApplication.git
+```
+
+La branche `dev` contient la version de développement de l'application.
+
 ## Prérequis
 
 Avant de lancer le projet, il faut disposer de :
