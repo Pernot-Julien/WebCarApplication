@@ -20,5 +20,7 @@
 
         public int Annee { get; set; }
 
+        public string? Description { get; set; }
+
     }
 }

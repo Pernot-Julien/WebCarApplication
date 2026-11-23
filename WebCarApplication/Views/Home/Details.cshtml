@@ -1,23 +1,45 @@
-﻿
-@model WebCarApplication.Models.ViewModels.ListeVoitureViewModel
+﻿@model WebCarApplication.Models.ViewModels.ListeVoitureViewModel
 
 @{
     ViewData["Title"] = "Détail du véhicule";
 }
 
-<div class="text-center">
+<div>
     <h1>@Model.Marque @Model.Modele</h1>
+
+    <a asp-controller="Home" asp-action="Index">
+        Retour
+    </a>
 
     <div class="carte-voiture">
         <img src="@Url.Content(Model.PhotoUrl)"
-        alt="Photo de @Model.Marque @Model.Modele" />
+             alt="Photo de @Model.Marque @Model.Modele" />
 
         <div class="infos-voiture">
 
             @if (User.Identity?.IsAuthenticated == true)
             {
-                <p class="statut-voiture @(Model.Disponible ? "" : "indisponible")">
-                    @(Model.Disponible ? "Disponible" : "Indisponible")
+                <div class="actions-voiture">
+                    <p>Vous avez publié cette annonce, vous pouvez la :</p>
+
+                    <a asp-controller="Voitures"
+                       asp-action="Update"
+                       asp-route-id="@Model.Id">
+                        Modifier
+                    </a>
+
+                    <form asp-controller="Voitures"
+                          asp-action="Delete"
+                          asp-route-id="@Model.Id"
+                          method="post"
+                          onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette voiture ?');">
+
+                        <button type="submit">Supprimer</button>
+                    </form>
+                </div>
+
+                <p class="statut-voiture @(Model.Vendu ? "vendu" : !Model.Disponible ? "indisponible" : "")">
+                    @(Model.Vendu ? "Vendu" : Model.Disponible ? "Disponible" : "Indisponible")
                 </p>
             }
 
@@ -27,9 +49,12 @@
             <p>Modèle : @Model.Modele</p>
             <p>Finition : @Model.Finition</p>
 
-            <a asp-controller="Home" asp-action="Index">
-                Retour aux annonces
-            </a>
+            @if (!string.IsNullOrWhiteSpace(Model.Description))
+            {
+                <div class="description-voiture">
+                    <p>Description : @Model.Description</p>
+                </div>
+            }
         </div>
     </div>
 </div>

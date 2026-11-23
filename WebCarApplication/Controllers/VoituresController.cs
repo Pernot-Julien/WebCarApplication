@@ -106,6 +106,7 @@ namespace WebCarApplication.Controllers
                 Disponible = createVoitureViewModel.Disponible,
                 DateDisponibilite = createVoitureViewModel.DateDisponibilite,
                 ModeleFinitionId = createVoitureViewModel.ModeleFinitionId,
+                Description = createVoitureViewModel.Description,
                 Photos = new List<Photo>()
             };
 
@@ -224,6 +225,7 @@ namespace WebCarApplication.Controllers
                 DateAchat = voiture.DateAchat,
                 PrixAchat = voiture.PrixAchat,
                 DateDisponibilite = voiture.DateDisponibilite,
+                Description = voiture.Description,
                 PhotoActuelle = voiture.Photos.FirstOrDefault()?.Url
             };
 
@@ -280,6 +282,7 @@ namespace WebCarApplication.Controllers
             voiture.PrixAchat = updateVoitureViewModel.PrixAchat;
             voiture.DateDisponibilite = updateVoitureViewModel.DateDisponibilite;
             voiture.ModeleFinitionId = updateVoitureViewModel.ModeleFinitionId;
+            voiture.Description = updateVoitureViewModel.Description;
 
             if (voiture.Vendu)
             {

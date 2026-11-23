@@ -49,6 +49,10 @@ namespace WebCarApplication.Models.ViewModels
         [Display(Name = "Finition")]
         public int ModeleFinitionId { get; set; }
 
+        [Display(Name = "Description du véhicule")]
+        [StringLength(2000, ErrorMessage = "La description ne peut pas dépasser 2000 caractères.")]
+        public string? Description { get; set; }
+
         [Display(Name = "Photo")]
         public IFormFile? Photo { get; set; }
 

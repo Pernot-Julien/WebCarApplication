@@ -109,6 +109,7 @@ namespace WebCarApplication.Controllers
                 Modele = modele.NomModele,
                 Finition = finition.NomFinition,
                 Disponible = voiture.Disponible,
+                Description = voiture.Description,
                 PhotoUrl = photos.FirstOrDefault()?.Url
             };
 
