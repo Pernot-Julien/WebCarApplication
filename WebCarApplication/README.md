@@ -127,7 +127,7 @@ Un compte utilisateur est créé automatiquement lors de l'initialisation de la 
 | Adresse e-mail | admin@admin.com |
 | Mot de passe | Admin123! |
 
-**Attention :** ces identifiants sont réservés à la démonstration et ne doivent pas être utilisés en production.
+**Attention ** ces identifiants sont réservés à la démonstration et ne doivent pas être utilisés en production.
 
 ## Calcul du prix de vente
 

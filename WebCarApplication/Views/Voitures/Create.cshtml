@@ -102,17 +102,13 @@
             </div>
 
            <div class="vehicle-form-group">
-
-    <label asp-for="Photo" class="vehicle-photo-upload">
-        <span class="vehicle-file-icon">+</span>
-        <span id="nomPhoto">Ajouter une image</span>
-    </label>
-
-    <input asp-for="Photo" type="file" accept="image/*" hidden />
-
-    <span asp-validation-for="Photo" class="text-danger"></span>
-
-</div>
+                <label asp-for="Photo" class="vehicle-photo-upload">
+                    <span class="vehicle-file-icon">+</span>
+                    <span id="nomPhoto">Ajouter une image</span>
+                </label>
+            <input asp-for="Photo" type="file" accept="image/*" hidden />
+            <span asp-validation-for="Photo" class="text-danger"></span>
+           </div>
 
             <div class="vehicle-form-actions">
                 <a asp-controller="Home" asp-action="Index" class="vehicle-back-link">
@@ -133,19 +129,10 @@
     }
 
     <script>
-      document.getElementById("Photo").onchange = function () {
-
-    const fichier = this.files[0];
-
-    if (fichier) {
-        document.getElementById("nomPhoto").hidden = true;
-        document.getElementById("photoPlus").hidden = true;
-
-        const preview = document.getElementById("photoPreview");
-        preview.src = URL.createObjectURL(fichier);
-        preview.hidden = false;
-    }
-};
+        document.getElementById("Photo").onchange = function () {
+            document.getElementById("nomPhoto").textContent =
+                this.files[0]?.name ?? "Ajouter une image";
+        };
     </script>
 }
    
