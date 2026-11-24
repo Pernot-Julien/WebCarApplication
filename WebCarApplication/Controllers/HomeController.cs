@@ -25,7 +25,7 @@ namespace WebCarApplication.Controllers
             _photoService = photoService;
             _modeleFinitionService = modeleFinitionService;
         }
- 
+
         public IActionResult Index()
         {
             var voituresStockees = _voitureService.ObtenirToutesLesVoitures();
@@ -103,6 +103,7 @@ namespace WebCarApplication.Controllers
             var viewModel = new ListeVoitureViewModel
             {
                 Id = voiture.Id,
+                Vendu = voiture.Vendu,
                 Prix = _voitureService.CalculerPrixVente(voiture, voiture.Reparations),
                 Annee = voiture.Annee,
                 Marque = marque.NomMarque,

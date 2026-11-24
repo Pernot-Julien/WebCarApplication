@@ -12,7 +12,7 @@ namespace WebCarApplication.Models.Repositories
         {
             _context = context;
         }
-  
+
         public IEnumerable<Modele> RecupererTousLesModeles()
         {
             return _context.Modeles.ToList();

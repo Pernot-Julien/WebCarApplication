@@ -26,7 +26,7 @@ namespace WebCarApplication.Controllers
             _finitionService = finitionService;
             _photoService = photoService;
             _reparationService = reparationService;
-            _modeleFinitionService = modeleFinitionService;     
+            _modeleFinitionService = modeleFinitionService;
         }
 
         [Authorize]
@@ -203,20 +203,20 @@ namespace WebCarApplication.Controllers
 
                 MarqueId = marque.Id,
                 MarquesDisponibles = _marqueService.RecupererToutesLesMarques().Select(m => new SelectListItem
-                    {
-                        Value = m.Id.ToString(),
-                        Text = m.NomMarque
-                    }).ToList(),
+                {
+                    Value = m.Id.ToString(),
+                    Text = m.NomMarque
+                }).ToList(),
 
                 ModeleId = modele.Id,
                 ModelesDisponibles = _modeleService.RecupererModelesSelonMarqueId(marque.Id).Select(m => new SelectListItem
-                    {
-                        Value = m.Id.ToString(),
-                        Text = m.NomModele
-                    }).ToList(),
+                {
+                    Value = m.Id.ToString(),
+                    Text = m.NomModele
+                }).ToList(),
 
                 ModeleFinitionId = modeleFinition.Id,
-                FinitionsDisponibles = _modeleFinitionService .RecupererModeleFinitionsSelonModeleId(modele.Id).Select(mf => new SelectListItem
+                FinitionsDisponibles = _modeleFinitionService.RecupererModeleFinitionsSelonModeleId(modele.Id).Select(mf => new SelectListItem
                 {
                     Value = mf.Id.ToString(),
                     Text = mf.Finition.NomFinition

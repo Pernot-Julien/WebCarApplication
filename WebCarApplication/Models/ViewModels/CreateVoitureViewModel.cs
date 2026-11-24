@@ -22,7 +22,7 @@ namespace WebCarApplication.Models.ViewModels
         [Range(0.01, double.MaxValue, ErrorMessage = "Le prix doit être supérieur à zéro")]
         [Display(Name = "Prix d'achat (€)")]
         public decimal PrixAchat { get; set; }
-        
+
         [Display(Name = "Description des réparations")]
         public string? DescriptionReparation { get; set; }
 

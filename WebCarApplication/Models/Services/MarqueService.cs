@@ -20,7 +20,7 @@ namespace WebCarApplication.Models.Services
         public Marque? RecupererMarqueSelonId(int marqueId)
         {
             return _marqueRepository.RecupererMarqueSelonId(marqueId);
-    }
+        }
 
     }
 }

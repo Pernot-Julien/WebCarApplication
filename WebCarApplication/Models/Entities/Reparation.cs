@@ -8,6 +8,5 @@
 
         public int VoitureId { get; set; }
         public Voiture? Voiture { get; set; }
-
     }
 }

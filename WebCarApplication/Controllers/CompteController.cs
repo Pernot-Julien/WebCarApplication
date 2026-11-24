@@ -78,7 +78,7 @@ namespace WebCarApplication.Controllers
 
             return View(registerViewModel);
         }
-    
+
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

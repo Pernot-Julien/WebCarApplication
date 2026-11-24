@@ -11,7 +11,7 @@ namespace WebCarApplication.Models.Repositories
         public PhotoRepository(ApplicationDbContext context)
         {
             _context = context;
-        }   
+        }
         public IEnumerable<Photo> RecupererPhotosSelonIdVoiture(int voitureId)
         {
             return _context.Photos.Where(p => p.VoitureId == voitureId).ToList();

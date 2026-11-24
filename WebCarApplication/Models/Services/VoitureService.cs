@@ -4,7 +4,7 @@ using WebCarApplication.Models.Services.Interfaces;
 
 namespace WebCarApplication.Models.Services
 {
-    public class VoitureService : IVoitureService   
+    public class VoitureService : IVoitureService
     {
         private readonly IVoitureRepository _voitureRepository;
         private readonly IParametresApplicationService _parametresApplicationService;

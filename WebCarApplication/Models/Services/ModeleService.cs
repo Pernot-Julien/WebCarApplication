@@ -20,7 +20,7 @@ namespace WebCarApplication.Models.Services
 
         public IEnumerable<Modele> RecupererTousLesModeles()
         {
-           return _modeleRepository.RecupererTousLesModeles();
+            return _modeleRepository.RecupererTousLesModeles();
         }
 
         public IEnumerable<Modele> RecupererModelesSelonMarqueId(int marqueId)

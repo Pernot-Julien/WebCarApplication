@@ -61,6 +61,6 @@ namespace WebCarApplication.Models.ViewModels
         public List<SelectListItem> ModelesDisponibles { get; set; } = new();
         public List<SelectListItem> FinitionsDisponibles { get; set; } = new();
         public string? PhotoActuelle { get; set; }
-    }  
+    }
 
 }

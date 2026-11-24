@@ -8,7 +8,7 @@ using WebCarApplication.Models.Services.Interfaces;
 
 namespace WebCarApplication.Models.Repositories
 {
-    public class ReparationRepository: IReparationRepository
+    public class ReparationRepository : IReparationRepository
     {
         private readonly ApplicationDbContext _context;
         public ReparationRepository(ApplicationDbContext context)
