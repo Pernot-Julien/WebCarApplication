@@ -44,6 +44,13 @@ namespace WebCarApplication.Models.ViewModels
         [Display(Name = "Modèle")]
         public int ModeleId { get; set; }
 
+        [Display(Name = "Description de la réparation")]
+        public string? DescriptionReparation { get; set; }
+
+        [Display(Name = "Coût de la réparation (€)")]
+        [Range(0, double.MaxValue, ErrorMessage = "Le coût doit être positif.")]
+        public decimal CoutReparation { get; set; }
+
         [Required(ErrorMessage = "La finition est obligatoire")]
         [Range(1, int.MaxValue, ErrorMessage = "Veuillez sélectionner une finition")]
         [Display(Name = "Finition")]

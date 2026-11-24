@@ -21,6 +21,7 @@ public class VoitureRepository : IVoitureRepository
     {
         return _context.Voitures
             .Include(v => v.Photos)
+            .Include(v => v.Reparations) 
             .Include(v => v.ModeleFinition)
                 .ThenInclude(mf => mf.Modele)
                     .ThenInclude(m => m.Marque)

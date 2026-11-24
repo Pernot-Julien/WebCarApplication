@@ -226,7 +226,9 @@ namespace WebCarApplication.Controllers
                 PrixAchat = voiture.PrixAchat,
                 DateDisponibilite = voiture.DateDisponibilite,
                 Description = voiture.Description,
-                PhotoActuelle = voiture.Photos.FirstOrDefault()?.Url
+                PhotoActuelle = voiture.Photos.FirstOrDefault()?.Url,
+                DescriptionReparation = voiture.Reparations.FirstOrDefault()?.DescriptionReparation,
+                CoutReparation = voiture.Reparations.FirstOrDefault()?.CoutReparation ?? 0,
             };
 
             return View(updateVoitureViewModel);
@@ -295,6 +297,26 @@ namespace WebCarApplication.Controllers
                 voiture.Disponible = updateVoitureViewModel.Disponible;
             }
 
+            // Modification de la réparation existante ou ajout d'une nouvelle
+            var reparation = voiture.Reparations.FirstOrDefault();
+
+            if (reparation != null)
+            {
+                reparation.DescriptionReparation =
+                    updateVoitureViewModel.DescriptionReparation ?? "";
+
+                reparation.CoutReparation =
+                    updateVoitureViewModel.CoutReparation;
+            }
+            else if (!string.IsNullOrWhiteSpace(updateVoitureViewModel.DescriptionReparation))
+            {
+                voiture.Reparations.Add(new Reparation
+                {
+                    DescriptionReparation = updateVoitureViewModel.DescriptionReparation,
+                    CoutReparation = updateVoitureViewModel.CoutReparation
+                });
+            }
+
             // Remplacement de la photo uniquement si une nouvelle est sélectionnée
             if (updateVoitureViewModel.Photo != null &&
                 updateVoitureViewModel.Photo.Length > 0)
@@ -339,7 +361,9 @@ namespace WebCarApplication.Controllers
             var finition = _finitionService
                 .RecupererFinitionSelonId(modeleFinition.FinitionId);
 
-            TempData["NomVoiture"] = $"{voiture.Annee} {marque.NomMarque} {modele.NomModele} {finition.NomFinition}";
+            TempData["NomVoiture"] =
+                $"{voiture.Annee} {marque.NomMarque} {modele.NomModele} {finition.NomFinition}";
+
             TempData["ActionConfirmation"] = "a bien été modifiée";
 
             return RedirectToAction("ConfirmationUpdate");
