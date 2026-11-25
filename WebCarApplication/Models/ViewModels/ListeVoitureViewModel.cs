@@ -1,4 +1,7 @@
-﻿namespace WebCarApplication.Models.ViewModels
+﻿using WebCarApplication.Models;
+using WebCarApplication.Models.Entities;
+
+namespace WebCarApplication.Models.ViewModels
 {
     public class ListeVoitureViewModel
     {
@@ -22,5 +25,6 @@
 
         public string? Description { get; set; }
 
+        public ICollection<Reparation> Reparations { get; set; } = new List<Reparation>();
     }
 }

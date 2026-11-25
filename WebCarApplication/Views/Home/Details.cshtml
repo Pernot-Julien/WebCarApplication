@@ -55,6 +55,18 @@
                     <p>Description : @Model.Description</p>
                 </div>
             }
+
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                @foreach (var reparation in Model.Reparations)
+                {
+                    <div class="reparations-voiture">
+                        <p>Réparations : @reparation.DescriptionReparation</p>
+                        <p>Coût : @reparation.CoutReparation.ToString("N2") €</p>
+                    </div>
+                }
+            }
+
         </div>
     </div>
 </div>

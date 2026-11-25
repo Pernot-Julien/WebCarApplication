@@ -47,7 +47,7 @@ h1 {
 .carte-voiture {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 30px;
 }
 
     .carte-voiture img {
@@ -58,18 +58,18 @@ h1 {
 
 .infos-voiture {
     margin-top: 0;
+    text-align: left !important;
 }
 
     .infos-voiture h3 {
         color: #2C1810;
         font-family: 'Libre Baskerville', serif;
         font-size: 22px;
-        margin-bottom: 30px;
+        margin-bottom: 15px;
     }
 
     .infos-voiture p {
         display: block;
-        margin: 0 0 22px;
         color: #796157;
         font-size: 14px;
     }
@@ -77,7 +77,7 @@ h1 {
 /* Actions sur les voitures */
 
 .actions-voiture {
-    margin-bottom: 35px;
+    margin-bottom: 15px;
 }
 
     .actions-voiture p {
