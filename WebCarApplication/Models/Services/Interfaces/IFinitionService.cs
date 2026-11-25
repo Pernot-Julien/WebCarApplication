@@ -4,7 +4,7 @@ namespace WebCarApplication.Models.Services.Interfaces
 {
     public interface IFinitionService
     {
-        public Finition RecupererFinitionSelonId(int finitionId);
-        public IEnumerable<Finition> RecupererToutesLesFinitions();
+        Finition RecupererFinitionSelonId(int finitionId);
+        IEnumerable<Finition> RecupererToutesLesFinitions();
     }
 }

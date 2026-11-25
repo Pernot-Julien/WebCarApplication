@@ -3,12 +3,12 @@ namespace WebCarApplication.Models.Services.Interfaces
 {
     public interface IVoitureService
     {
-        public decimal CalculerPrixVente(Voiture voiture, IEnumerable<Reparation> reparations);
-        public Voiture AjouterVoiture(Voiture voiture);
-        public void ModifierVoiture(Voiture voiture);
-        public Voiture? RechercherVoitureParId(int id);
-        public Voiture? SupprimerVoiture(int id);
-        public IEnumerable<Voiture> ObtenirToutesLesVoitures();
+         decimal CalculerPrixVente(Voiture voiture, IEnumerable<Reparation> reparations);
+         Voiture AjouterVoiture(Voiture voiture);
+         void ModifierVoiture(Voiture voiture);
+         Voiture? RechercherVoitureParId(int id);
+         Voiture? SupprimerVoiture(int id);
+         IEnumerable<Voiture> ObtenirToutesLesVoitures();
 
     }
 }

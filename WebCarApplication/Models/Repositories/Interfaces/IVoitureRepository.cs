@@ -3,11 +3,11 @@ namespace WebCarApplication.Models.Repositories.Interfaces
 {
     public interface IVoitureRepository
     {
-        public IEnumerable<Voiture> ObtenirToutesLesVoitures();
-        public Voiture? RechercherVoitureParId(int id);
-        public void AjouterVoiture(Voiture voiture);
-        public void ModifierVoiture(Voiture voiture);
-        public Voiture? SupprimerVoiture(int id);
+     IEnumerable<Voiture> ObtenirToutesLesVoitures();
+     Voiture? RechercherVoitureParId(int id);
+     void AjouterVoiture(Voiture voiture);
+     void ModifierVoiture(Voiture voiture);
+     Voiture? SupprimerVoiture(int id);
 
     }
 }
